@@ -26,3 +26,12 @@
   background-color: grey;
   transition: 0.5s;
 }
+
+footer{
+  transition: 1s;
+}
+
+footer:hover{
+  background-color: grey;
+  transition: 1s;
+}
