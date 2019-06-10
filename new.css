@@ -28,10 +28,10 @@
 }
 
 footer{
-  transition: 1s;
+  transition: 0.3s;
 }
 
 footer:hover{
   background-color: grey;
-  transition: 1s;
+  transition: 0.3s;
 }
