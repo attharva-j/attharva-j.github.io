@@ -2,61 +2,49 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Cloud Computing</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./new.css">
+    <title>Atharva Joshi</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
-  <body>
-    <div class="jumbotron text-center">
-    <h1>Cloud Computing Demystified</h1>
-    <h5>What is Cloud Computing?</h5>
-  </div>
-  <div class="container text-center">
-      <button type="button" class="btn btn-default panel-btn">Home</button>
-      <button type="button" class="btn btn-default panel-btn">Top Leaders</button>
-      <button type="button" class="btn btn-default panel-btn">Billing</button>
-      <button type="button" class="btn btn-default panel-btn">Enquire</button>
-  </div>
+  <body onload="typeWriter()">
 
-  <div class="row row1">
-    <div class="col-sm-4 body-col text-center">
-      <button type="button" class="btn btn-info body-btn">Home</button><br>
-      <button type="button" class="btn btn-info body-btn">Top Leaders</button><br>
-      <button type="button" class="btn btn-info body-btn">Billing</button><br>
-      <button type="button" class="btn btn-info body-btn">Enquire</button><br>
-    </div>
-    <div class="col-sm-8 body-col">
-      <h3>Understanding cloud computing</h3>
-      <p>Cloud computing is a set of principles and approaches to deliver
-        computing infrastructure, services, platforms, and applications—sourced
-        from clouds—to users on-demand across a network. Clouds are pools of
-        virtual resources (such as raw processing power, storage, or cloud-based
-        applications) orchestrated by management and automation software so
-        they can be accessed by users on-demand through self-service portals
-        supported by automatic scaling and dynamic resource allocation. Cloud
-        computing can free IT departments from spending time spinning up
-        custom deployments by giving business units the power to request and
-        deploy their own resources.</p>
-
-        <h5>Advantages of cloud computing:</h5>
-        <ul>
-          <li>Total capital expense for variable expense.</li>
-          <li>Benefit from massive economies of scale.</li>
-          <li>Eliminate guessing on your capacity needs.</li>
-          <li>Increase speed and agility.</li>
-          <li>Stop spending money to run and maintain data centers.</li>
-          <li>Go global in minutes</li>
+    <nav class="navbar navbar-inverse" id="topnav">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand">A.J &reg;</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">HOME</a></li>
+          <li><a href="#">ABOUT</a></li>
+          <li><a href="#">PROJECTS</a></li>
+          <li><a href="#">SKILLS</a></li>
+          <li><a href="#">LET'S CONNECT !</a></li>
         </ul>
+      </div>
+    </nav>
 
-        <h5>Disclaimer</h5>
-        <p>This is an information searched from the internet. This does not guarantee
-          the correct information that you may expecting. You can check details of
-          service models in above links. Cloud computing is Amazing!</p>
+    <div class="container">
+      <span id="name"></span>
     </div>
-  </div>
-  <footer style="text-align: center">Developed by Attharva J&reg<br>&copy 2019</footer>
+
+    <script type="text/javascript">
+      var i=0;
+      var txt = "ATHARVA JOSHI"
+      var speed = 100;
+      function typeWriter(){
+        if (i < txt.length){
+        document.getElementById("name").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+        }
+      }
+    </script>
+
+    <div class="info">
+      <p>Welcome to my Web page. I am an inquisitive Computer Science undergraduate student with a solid grasp on math, logic and cross-platform coding. Know more about my projects and works <a href="#">HERE!</a></p>
+    </div>
   </body>
 </html>

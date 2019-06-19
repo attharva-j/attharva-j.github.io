@@ -1,0 +1,43 @@
+body{
+  padding: 0;
+  margin: 0;
+  background-image: url("./images/bck.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: Lato;
+}
+.container{
+  width: 100%;
+  margin-top: 10%;
+  color: white;
+  background-color: black;
+  text-align: center;
+  font-size: 550%;
+}
+
+.navigationBar{
+  margin-left: 1%;
+  float: left;
+}
+
+.info{
+  margin-top: 2%;
+  color: white;
+  width: 20%;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+
+a:hover{
+  color: white;
+}
+
+#topnav{
+  /*margin-top: 1%;*/
+}
