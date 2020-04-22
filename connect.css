@@ -16,20 +16,12 @@ body{
   color: black;
   background-color: white;
   text-align: center;
-  font-size: 550%;
+  font-size: 250%;
 }
 
 .navigationBar{
   margin-left: 1%;
   float: left;
-}
-
-.info{
-  margin-top: 10%;
-  color: white;
-  width: 20%;
-  border: 1px solid white;
-  background-color: black;
 }
 
 a{
