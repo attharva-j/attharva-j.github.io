@@ -1,57 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>Atharva Joshi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Special+Elite&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./index.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Atharva Joshi — GenAI Engineer</title>
+    <meta name="description" content="Atharva Joshi — GenAI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines." />
+    <link rel="icon" href="/favicon.ico" />
   </head>
-  <body onload="typeWriter()">
-
-    <div class="first-sec">
-      <nav class="navbar navbar-inverse" id="topnav">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a href="#" class="navbar-brand">A.J &reg;</a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#">HOME</a></li>
-            <li><a href="./about.html">ABOUT</a></li>
-            <li><a href="./projects.html">PROJECTS</a></li>
-            <!--  <li><a href="./skills.html">SKILLS</a></li> -->
-            <li><a href="./connect.html">LET'S CONNECT !</a></li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container">
-        <span id="name"></span>
-      </div>
-
-      <script type="text/javascript">
-        var i=0;
-        var txt = "ATHARVA JOSHI"
-        var speed = 100;
-        function typeWriter(){
-          if (i < txt.length){
-          document.getElementById("name").innerHTML += txt.charAt(i);
-          i++;
-          setTimeout(typeWriter, speed);
-          }
-        }
-      </script>
-
-      <div class="info">
-        <p>Welcome to my web page. I am an inquisitive Computer Science undergraduate student with a solid grasp on math, logic and cross-platform coding. Know more about my projects and works <a href="./projects.html">HERE!</a></p>
-      </div>
-    </div>
-
-
-    <div id="foot" align='center'>
-      <footer>Designed and developed by Attharva J&trade;<br>WebAvenue Tech&copy; 2020</footer>
-    </div>
+  <body class="bg-gradient-to-b from-[#071127] to-[#071424] text-slate-100">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

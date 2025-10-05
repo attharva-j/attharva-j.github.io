@@ -1,0 +1,25 @@
+{
+  "name": "atharva-j-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://attharva-j.github.io",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5173",
+    "deploy": "npm run build && npx gh-pages -d dist -r https://github.com/attharva-j/attharva-j.github.io.git"
+  },
+  "dependencies": {
+    "framer-motion": "^10.12.7",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-router-dom": "^6.17.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "gh-pages": "^5.0.0",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.2.0"
+  }
+}
