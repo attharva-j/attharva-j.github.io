@@ -2,7 +2,6 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import profilePic from '../assets/portfolioimage.jpg'
 
-
 export default function Home(){
   return (
     <section className="grid md:grid-cols-2 gap-6 items-start">
@@ -24,7 +23,6 @@ export default function Home(){
       <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .5 }} className="glass-card">
         <div className="flex items-center gap-4">
           <img src={profilePic} alt="avatar" className="w-20 h-20 rounded-lg object-cover border border-[rgba(255,255,255,0.04)]" />
-
           <div>
             <div className="font-semibold text-lg">Atharva Joshi</div>
             <div className="text-sm text-slate-400">Salt Lake City, UT</div>

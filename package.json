@@ -11,7 +11,8 @@
     "deploy": "npm run build && npx gh-pages -d dist -r https://$GH_TOKEN@github.com/attharva-j/attharva-j.github.io.git"
   },
   "dependencies": {
-    "framer-motion": "^10.12.7",
+    "framer-motion": "^10.18.0",
+    "lucide-react": "^0.544.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-router-dom": "^6.17.1"

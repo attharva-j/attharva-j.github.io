@@ -9,6 +9,7 @@ module.exports = {
         muted: '#94a3b8'
       },
       fontFamily: {
+        poppins: ['Poppins', 'Inter', 'ui-sans-serif', 'system-ui'],
         inter: ['Inter', 'system-ui', 'Arial']
       }
     }
