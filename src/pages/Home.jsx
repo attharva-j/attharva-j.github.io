@@ -21,7 +21,7 @@ export default function Home(){
 
       <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .5 }} className="glass-card">
         <div className="flex items-center gap-4">
-          <img src="/src/assets/portfolioimage.jpeg" alt="avatar" className="w-20 h-20 rounded-lg object-cover border border-[rgba(255,255,255,0.04)]" />
+          <img src="/src/assets/portfolioimage.jpg" alt="avatar" className="w-20 h-20 rounded-lg object-cover border border-[rgba(255,255,255,0.04)]" />
           <div>
             <div className="font-semibold text-lg">Atharva Joshi</div>
             <div className="text-sm text-slate-400">San Francisco, CA • +1 763-202-0270</div>
