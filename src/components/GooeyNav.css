@@ -1,0 +1,106 @@
+/* GooeyNav minimal styles - place in src/components/GooeyNav.css */
+
+:root{
+  --color-1: #60a5fa;
+  --color-2: #a78bfa;
+  --color-3: #34d399;
+  --color-4: #f97316;
+}
+
+.gooey-nav-container {
+  position: relative;
+  display: block;
+  height: 64px;
+  user-select: none;
+}
+
+/* nav list */
+.gooey-nav-container nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  height: 64px;
+}
+
+.gooey-nav-container nav ul li {
+  position: relative;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.gooey-nav-container nav ul li a {
+  color: #e6eef6;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+}
+
+/* Active underline */
+.gooey-nav-container nav ul li.active a {
+  color: #fff;
+}
+
+/* effect layers */
+.gooey-nav-container .effect {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 8px;
+  overflow: visible;
+  display: block;
+}
+
+/* filtering layer (particles appear here) */
+.gooey-nav-container .effect.filter {
+  filter: blur(8px) saturate(120%);
+  mix-blend-mode: normal;
+  z-index: 8;
+}
+
+/* text overlay layer */
+.gooey-nav-container .effect.text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  font-weight: 700;
+  z-index: 9;
+  -webkit-text-stroke: 0.6px rgba(255,255,255,0.06);
+}
+
+/* particles */
+.gooey-nav-container .particle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(var(--start-x,0), var(--start-y,0)) rotate(var(--rotate,0deg));
+  animation: move var(--time,1000ms) linear forwards;
+  will-change: transform, opacity;
+  z-index: 6;
+}
+
+.gooey-nav-container .particle .point {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-1);
+  transform: scale(var(--scale,1));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.24);
+}
+
+/* animation uses css vars for end position */
+@keyframes move {
+  to {
+    transform: translate(var(--end-x,0), var(--end-y,0)) rotate(calc(var(--rotate,0deg) + 90deg));
+    opacity: 0;
+  }
+}
+
+/* text active animation */
+.gooey-nav-container .effect.text.active {
+  transition: transform 260ms ease;
+  transform: scale(1.02);
+}

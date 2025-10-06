@@ -10,10 +10,7 @@ export default function Contact(){
 
         <div className="mt-4">
           <div className="text-slate-400">Email</div>
-          <a className="block mt-1 text-white font-semibold" href="mailto:youremail@example.com">youremail@example.com</a>
-
-          <div className="text-slate-400 mt-4">Phone</div>
-          <div className="mt-1">+1 763-202-0270</div>
+          <a className="block mt-1 text-white font-semibold" href="mailto:youremail@example.com">atharvajoshi77@gmail.com</a>
 
           <div className="text-slate-400 mt-4">Location</div>
           <div className="mt-1">San Francisco, CA</div>
@@ -28,7 +25,7 @@ export default function Contact(){
           <textarea name="message" rows="5" placeholder="Quick message" className="p-2 rounded bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.03)]"></textarea>
           <button type="submit" className="bg-accent px-4 py-2 rounded text-slate-800 font-semibold">Send</button>
         </form>
-        <div className="text-slate-400 text-xs mt-3">Tip: replace the Formspree action with your own or integrate an email / serverless function for leads.</div>
+        <div className="text-slate-400 text-xs mt-3">PS: This feature is remains inactive for now.</div>
       </motion.div>
     </section>
   )

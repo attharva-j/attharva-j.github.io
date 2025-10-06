@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import GooeyNav from "./GooeyNav";
+import "./GooeyNav.css";
 
 const links = [
   { to: "/", label: "Home" },
@@ -16,7 +18,6 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
   const loc = useLocation();
 
-  // Automatically close the mobile menu when the route changes
   React.useEffect(() => {
     setOpen(false);
   }, [loc.pathname]);
@@ -37,38 +38,54 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-2">
-          {links.map((l) => (
-            <NavLink key={l.to} to={l.to} label={l.label} active={loc.pathname === l.to} />
-          ))}
+        {/* 🌀 Desktop Gooey Navigation */}
+        <div className="hidden md:flex items-center gap-2 relative">
+          <GooeyNav>
+            {links.map((l) => (
+              <NavLink key={l.to} to={l.to} label={l.label} active={loc.pathname === l.to} />
+            ))}
+          </GooeyNav>
+
           <a
-            className="ml-4 inline-block bg-gradient-to-r from-accent to-accent2 text-slate-900 px-3 py-2 rounded-lg font-semibold"
+            className="ml-4 inline-block bg-gradient-to-r from-accent to-accent2 text-slate-900 px-3 py-2 rounded-lg font-semibold transition-all hover:shadow-md hover:scale-105"
             href="/resume.pdf"
             download
           >
             Resume
           </a>
-        </nav>
+        </div>
 
         {/* Mobile hamburger */}
-        <div className="md:hidden">
+        <div className="md:hidden relative z-[60]">
           <motion.button
             aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="p-2 rounded-md focus:outline-none relative z-[60]"
+            className="p-2 rounded-md focus:outline-none relative"
             whileTap={{ scale: 0.9 }}
           >
-            <motion.div
-              key={open ? "close" : "menu"}
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {open ? <X size={24} color="white" /> : <Menu size={24} color="white" />}
-            </motion.div>
+            <AnimatePresence mode="wait" initial={false}>
+              {open ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <X size={26} color="white" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Menu size={26} color="white" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.button>
         </div>
       </div>
@@ -82,27 +99,25 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="fixed inset-0 z-50 flex justify-end"
+            className="fixed inset-0 z-40 flex justify-end"
           >
-            {/* Translucent blurred backdrop (clickable to close) */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.2}}
+              animate={{ opacity: 0.4 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setOpen(false)}
-              className="absolute inset-0 bg-black backdrop-blur-[1px]"
+              className="absolute inset-0 bg-black/50 backdrop-blur-2xl"
             />
 
-            {/* Sliding menu panel */}
             <motion.div
               key="panel"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="relative w-full h-full bg-[rgba(8,14,26,0.7)] backdrop-blur-xl border-l border-[rgba(255,255,255,0.1)] p-8 flex flex-col items-start"
+              className="relative w-[80%] max-w-sm h-full bg-[rgba(10,15,25,0.7)] backdrop-blur-3xl border-l border-[rgba(255,255,255,0.1)] p-8 flex flex-col items-start"
             >
               <nav className="flex flex-col gap-6 mt-12 w-full">
                 {links.map((l) => (
@@ -110,7 +125,7 @@ export default function Navbar() {
                     key={l.to}
                     to={l.to}
                     onClick={() => setOpen(false)}
-                    className="text-2xl font-semibold text-slate-100 hover:text-white"
+                    className="text-2xl font-semibold text-slate-100 hover:text-white transition"
                   >
                     {l.label}
                   </Link>
@@ -144,17 +159,13 @@ export default function Navbar() {
 
 function NavLink({ to, label, active }) {
   return (
-    <Link to={to} className="relative px-3 py-2 rounded group">
-      <div className={`text-sm font-medium ${active ? "text-white" : "text-slate-300"}`}>
-        {label}
-      </div>
-      {active && (
-        <motion.span
-          layoutId="underline"
-          className="block h-0.5 bg-accent rounded mt-1"
-          style={{ width: "100%" }}
-        />
-      )}
+    <Link
+      to={to}
+      className={`relative px-4 py-2 text-sm font-semibold transition-all duration-300 ${
+        active ? "text-white" : "text-slate-300 hover:text-white"
+      }`}
+    >
+      {label}
     </Link>
   );
 }
