@@ -7,8 +7,8 @@ export default function Home(){
   const stats = [
     { label: 'Production Systems', value: '10+', icon: Zap },
     { label: 'Cost Savings', value: '$900K+', icon: Sparkles },
-    { label: 'Years Experience', value: '4+', icon: Brain },
-    { label: 'Enterprise Clients', value: '5+', icon: Code2 }
+    { label: 'Years Experience', value: '5+', icon: Brain },
+    { label: 'Enterprise Clients', value: '10+', icon: Code2 }
   ]
 
   return (
