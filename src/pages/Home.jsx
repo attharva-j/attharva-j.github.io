@@ -1,44 +1,175 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import profilePic from '../assets/portfolioimage.jpg'
+import { Sparkles, Code2, Brain, Zap } from 'lucide-react'
 
 export default function Home(){
-  return (
-    <section className="grid md:grid-cols-2 gap-6 items-start">
-      <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .5 }} className="space-y-4">
-        <div className="text-sm text-slate-400">Hello, I’m</div>
-        <h1 className="text-3xl md:text-4xl font-bold">Atharva Joshi — GenAI Engineer</h1>
-        <p className="text-slate-300 max-w-xl">
-          I build production-grade GenAI systems: RAG architectures, agentic workflows, MCPs, and scalable inference
-          pipelines for enterprise. I specialize in delivery — turning complex data systems into usable, auditable AI products.
-        </p>
+  const stats = [
+    { label: 'Production Systems', value: '10+', icon: Zap },
+    { label: 'Cost Savings', value: '$900K+', icon: Sparkles },
+    { label: 'Years Experience', value: '5+', icon: Brain },
+    { label: 'Enterprise Clients', value: '10+', icon: Code2 }
+  ]
 
-        <div className="flex gap-3 mt-4">
-          <a href="/projects" className="inline-block bg-accent px-4 py-2 rounded-lg font-semibold text-slate-900">See projects</a>
-          <a href="/contact" className="inline-block border border-[rgba(255,255,255,0.06)] px-4 py-2 rounded-lg text-slate-200">Contact</a>
-          <a href="/resume.pdf" download className="inline-block px-4 py-2 rounded-lg bg-[rgba(255,255,255,0.02)]">Resume</a>
-        </div>
+  return (
+    <section className="space-y-12">
+      {/* Hero Section */}
+      <div className="grid md:grid-cols-2 gap-8 items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent/20 to-accent2/20 border border-accent/30">
+            <Sparkles size={16} className="text-accent" />
+            <span className="text-sm font-medium text-slate-200">Available for Consulting</span>
+          </div>
+          
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              Building Production-Grade
+              <span className="bg-gradient-to-r from-accent to-accent2 bg-clip-text text-transparent"> GenAI Systems</span>
+            </h1>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              GenAI Engineer specializing in enterprise RAG architectures, agentic workflows, and scalable AI pipelines. 
+              I transform complex ML systems into auditable, production-ready solutions that drive measurable business impact.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <a 
+              href="/projects" 
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-accent to-accent2 px-6 py-3 rounded-lg font-semibold text-slate-900 hover:shadow-lg hover:shadow-accent/20 transition-all"
+            >
+              View Projects
+              <Code2 size={18} />
+            </a>
+            <a 
+              href="/contact" 
+              className="inline-flex items-center gap-2 border-2 border-accent/30 px-6 py-3 rounded-lg text-slate-200 font-semibold hover:bg-accent/10 transition-all"
+            >
+              Get in Touch
+            </a>
+            <a 
+              href="/resume.pdf" 
+              download 
+              className="inline-flex items-center gap-2 bg-slate-800/50 px-6 py-3 rounded-lg text-slate-200 hover:bg-slate-800 transition-all"
+            >
+              Resume
+            </a>
+          </div>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }} 
+          animate={{ opacity: 1, scale: 1 }} 
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative"
+        >
+          <div className="glass-card p-8 space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-accent to-accent2 p-1">
+                <div className="w-full h-full rounded-lg bg-slate-900 flex items-center justify-center text-3xl font-bold text-white">
+                  AJ
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold">Atharva Joshi</h3>
+                <p className="text-accent font-medium">GenAI Engineer & ML Architect</p>
+                <p className="text-sm text-slate-400 mt-1">Salt Lake City, UT</p>
+                <div className="flex gap-3 mt-3">
+                  <a href="mailto:atharvajoshi77@gmail.com" className="text-xs text-slate-400 hover:text-accent transition">Email</a>
+                  <a href="https://linkedin.com/in/attharvaj3147" className="text-xs text-slate-400 hover:text-accent transition">LinkedIn</a>
+                  <a href="https://github.com/attharva-j" className="text-xs text-slate-400 hover:text-accent transition">GitHub</a>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-slate-300 uppercase tracking-wide">Expertise</h4>
+              <div className="flex flex-wrap gap-2">
+                {['RAG Systems', 'AI Agents', 'LangGraph', 'Vector DBs', 'LLM Fine-tuning', 'MLOps'].map(skill => (
+                  <span key={skill} className="px-3 py-1 text-xs font-medium rounded-full bg-accent/10 text-accent border border-accent/20">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-700/50">
+              <h4 className="font-semibold text-sm text-slate-300 mb-3">Key Achievements</h4>
+              <ul className="space-y-2 text-sm text-slate-400">
+                <li className="flex gap-2">
+                  <span className="text-accent">→</span>
+                  <span>60-70% reduction in schema change cycle time (Lululemon)</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent">→</span>
+                  <span>$900K+ in cumulative cost savings across projects</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent">→</span>
+                  <span>Speaker at Snowflake Summit 2025</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Decorative gradient orbs */}
+          <div className="absolute -z-10 top-0 right-0 w-72 h-72 bg-accent/20 rounded-full blur-3xl opacity-20"></div>
+          <div className="absolute -z-10 bottom-0 left-0 w-72 h-72 bg-accent2/20 rounded-full blur-3xl opacity-20"></div>
+        </motion.div>
+      </div>
+
+      {/* Stats Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+      >
+        {stats.map((stat, idx) => {
+          const Icon = stat.icon
+          return (
+            <motion.div 
+              key={idx}
+              whileHover={{ y: -4 }}
+              className="glass-card text-center p-6"
+            >
+              <Icon className="w-8 h-8 mx-auto mb-3 text-accent" />
+              <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-sm text-slate-400">{stat.label}</div>
+            </motion.div>
+          )
+        })}
       </motion.div>
 
-      <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .5 }} className="glass-card">
-        <div className="flex items-center gap-4">
-          <img src={profilePic} alt="avatar" className="w-20 h-20 rounded-lg object-cover border border-[rgba(255,255,255,0.04)]" />
-          <div>
-            <div className="font-semibold text-lg">Atharva Joshi</div>
-            <div className="text-sm text-slate-400">Salt Lake City, UT</div>
-            <div className="text-sm text-slate-400 mt-1">GenAI · RAG · Agents · MLOps</div>
-          </div>
+      {/* Featured Work Teaser */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="glass-card p-8"
+      >
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-2xl font-bold">Recent Impact</h3>
+          <a href="/projects" className="text-accent hover:text-accent2 transition font-medium text-sm">
+            View All Projects →
+          </a>
         </div>
-
-        <hr className="my-4 border-[rgba(255,255,255,0.03)]" />
-
-        <div className="text-sm text-slate-300">
-          <strong>Highlights</strong>
-          <ul className="mt-2 ml-4 list-disc text-slate-400">
-            <li>Built enterprise RAG system that cut schema-change cycle by 60–70% (Lululemon).</li>
-            <li>Vectorized 100K+ docs powering meeting-prep assistant with 45–50 minutes saved per meeting.</li>
-            <li>Reduced support search time by 75% by building CustomGPT support assistants.</li>
-          </ul>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="space-y-2">
+            <div className="text-accent font-bold text-xl">60-70%</div>
+            <div className="text-sm text-slate-300">Faster change implementation for data workflows of a leading athleisure brand</div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-accent font-bold text-xl">45-50 min</div>
+            <div className="text-sm text-slate-300">Saved per meeting with AI-powered prep assistant</div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-accent font-bold text-xl">75%</div>
+            <div className="text-sm text-slate-300">Reduction in support search time via RAG system</div>
+          </div>
         </div>
       </motion.div>
     </section>
