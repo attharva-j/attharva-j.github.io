@@ -1,8 +1,10 @@
+// src/components/Navbar.jsx - Updated
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import GooeyNav from "./GooeyNav";
+import ResumeButton from "./ResumeButton";
 import "./GooeyNav.css";
 
 const links = [
@@ -38,7 +40,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* 🌀 Desktop Gooey Navigation */}
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-2 relative">
           <GooeyNav>
             {links.map((l) => (
@@ -46,13 +48,7 @@ export default function Navbar() {
             ))}
           </GooeyNav>
 
-          <a
-            className="ml-4 inline-block bg-gradient-to-r from-accent to-accent2 text-slate-900 px-3 py-2 rounded-lg font-semibold transition-all hover:shadow-md hover:scale-105"
-            href="/resume.pdf"
-            download
-          >
-            Resume
-          </a>
+          <ResumeButton variant="navbar" className="ml-4" />
         </div>
 
         {/* Mobile hamburger */}
@@ -90,7 +86,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Full-screen mobile drawer */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
           <motion.aside
@@ -130,13 +126,11 @@ export default function Navbar() {
                     {l.label}
                   </Link>
                 ))}
-                <a
-                  href="/resume.pdf"
-                  download
-                  className="mt-8 inline-block bg-accent px-4 py-2 rounded-lg text-slate-900 font-semibold"
-                >
-                  Download Resume
-                </a>
+                
+                <div className="mt-8">
+                  <ResumeButton variant="primary" className="w-full justify-center" />
+                </div>
+
                 <div className="mt-8 flex gap-4 text-slate-400">
                   <a href="https://github.com/attharva-j" target="_blank" rel="noreferrer">
                     GitHub

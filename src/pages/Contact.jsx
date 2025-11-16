@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Linkedin, Github, Twitter, MapPin, Calendar, Briefcase, MessageSquare } from 'lucide-react'
+import ResumeButton from '../components/ResumeButton'
 
 export default function Contact(){
   const contactMethods = [
@@ -114,13 +115,7 @@ export default function Contact(){
           <div className="glass-card p-6 space-y-4">
             <h3 className="font-semibold">Quick Actions</h3>
             <div className="space-y-3">
-              <a 
-                href="/resume.pdf" 
-                download
-                className="block w-full bg-gradient-to-r from-accent to-accent2 text-slate-900 px-4 py-3 rounded-lg font-semibold text-center hover:shadow-lg hover:shadow-accent/20 transition-all"
-              >
-                Download Resume
-              </a>
+              <ResumeButton variant="primary" className="w-full justify-center" />
               <a 
                 href="/projects"
                 className="block w-full border-2 border-accent/30 text-slate-200 px-4 py-3 rounded-lg font-semibold text-center hover:bg-accent/10 transition-all"

@@ -1,13 +1,14 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles, Code2, Brain, Zap } from 'lucide-react'
+import ResumeButton from '../components/ResumeButton'
 
 export default function Home(){
   const stats = [
     { label: 'Production Systems', value: '10+', icon: Zap },
     { label: 'Cost Savings', value: '$900K+', icon: Sparkles },
-    { label: 'Years Experience', value: '5+', icon: Brain },
-    { label: 'Enterprise Clients', value: '10+', icon: Code2 }
+    { label: 'Years Experience', value: '4+', icon: Brain },
+    { label: 'Enterprise Clients', value: '5+', icon: Code2 }
   ]
 
   return (
@@ -50,13 +51,7 @@ export default function Home(){
             >
               Get in Touch
             </a>
-            <a 
-              href="/resume.pdf" 
-              download 
-              className="inline-flex items-center gap-2 bg-slate-800/50 px-6 py-3 rounded-lg text-slate-200 hover:bg-slate-800 transition-all"
-            >
-              Resume
-            </a>
+            <ResumeButton variant="ghost" />
           </div>
         </motion.div>
 
@@ -160,7 +155,7 @@ export default function Home(){
         <div className="grid md:grid-cols-3 gap-6">
           <div className="space-y-2">
             <div className="text-accent font-bold text-xl">60-70%</div>
-            <div className="text-sm text-slate-300">Faster change implementation for data workflows of a leading athleisure brand</div>
+            <div className="text-sm text-slate-300">Faster change implementation for Lululemon's data workflows</div>
           </div>
           <div className="space-y-2">
             <div className="text-accent font-bold text-xl">45-50 min</div>
