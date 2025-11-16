@@ -7,8 +7,8 @@ export default function Footer(){
         <div>© {new Date().getFullYear()} Atharva Joshi — GenAI Engineer</div>
         <div className="flex gap-3">
           <a href="https://github.com/attharva-j" target="_blank" rel="noreferrer" className="hover:text-white">GitHub</a>
-          <a href="#" className="hover:text-white">LinkedIn</a>
-          <a href="#" className="hover:text-white">Medium</a>
+          <a href="https://www.linkedin.com/in/attharvaj3147" className="hover:text-white">LinkedIn</a>
+          <a href="https://www.medium.com/@athex25" className="hover:text-white">Medium</a>
         </div>
       </div>
     </footer>

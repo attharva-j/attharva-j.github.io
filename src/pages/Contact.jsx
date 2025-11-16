@@ -16,7 +16,7 @@ export default function Contact(){
       icon: Linkedin,
       label: 'LinkedIn',
       value: '/in/atharvaj',
-      href: 'https://linkedin.com/in/atharvaj',
+      href: 'https://linkedin.com/in/attharvaj3147',
       description: 'Let\'s connect professionally'
     },
     {
@@ -30,7 +30,7 @@ export default function Contact(){
       icon: Twitter,
       label: 'Medium',
       value: '@atharvajoshi',
-      href: 'https://medium.com/@atharvajoshi',
+      href: 'https://medium.com/@athex25',
       description: 'Read my articles'
     }
   ]
@@ -171,7 +171,7 @@ export default function Contact(){
                 <span>Send Email</span>
               </a>
               <a
-                href="https://linkedin.com/in/atharvaj"
+                href="https://linkedin.com/in/attharvaj3147"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 border-2 border-accent/30 text-slate-200 px-6 py-4 rounded-lg font-semibold hover:bg-accent/10 transition-all"
