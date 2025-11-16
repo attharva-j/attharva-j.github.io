@@ -15,7 +15,7 @@ export default function Contact(){
     {
       icon: Linkedin,
       label: 'LinkedIn',
-      value: '/in/atharvaj',
+      value: '/in/attharvaj3147',
       href: 'https://linkedin.com/in/attharvaj3147',
       description: 'Let\'s connect professionally'
     },
