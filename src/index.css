@@ -61,13 +61,13 @@
 
   /* Dark theme glass card */
   .glass-card {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.2) 0%, rgba(10, 10, 10, 0.2) 100%);
     border: 1px solid rgba(75, 85, 99, 0.3);
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: background 0.3s ease, border-color 0.3s ease;
   }
 
