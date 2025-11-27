@@ -11,11 +11,15 @@
     "deploy": "npm run build && npx gh-pages -d dist -r https://$GH_TOKEN@github.com/attharva-j/attharva-j.github.io.git"
   },
   "dependencies": {
+    "d3": "^7.9.0",
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.544.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "react-router-dom": "^6.17.1"
+    "react-force-graph-2d": "^1.29.0",
+    "react-force-graph-3d": "^1.29.0",
+    "react-router-dom": "^6.17.1",
+    "webcola": "^3.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.4",
