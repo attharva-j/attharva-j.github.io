@@ -25,18 +25,20 @@ function AppContent() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 container py-6">
-        <AnimatePresence mode="wait" initial={false}>
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-            <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-            <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
-            <Route path="/experience" element={<PageWrapper><Experience /></PageWrapper>} />
-            <Route path="/skills" element={<PageWrapper><Skills /></PageWrapper>} />
-            <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-            <Route path="*" element={<PageWrapper><Home /></PageWrapper>} />
-          </Routes>
-        </AnimatePresence>
+      <main className="flex-1 py-6">
+        <div className={location.pathname === '/' ? 'w-full' : 'container'}>
+          <AnimatePresence mode="wait" initial={false}>
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+              <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+              <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
+              <Route path="/experience" element={<PageWrapper><Experience /></PageWrapper>} />
+              <Route path="/skills" element={<PageWrapper><Skills /></PageWrapper>} />
+              <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+              <Route path="*" element={<PageWrapper><Home /></PageWrapper>} />
+            </Routes>
+          </AnimatePresence>
+        </div>
       </main>
       <Footer />
     </div>

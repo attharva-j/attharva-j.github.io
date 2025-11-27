@@ -18,7 +18,7 @@ export default function Home(){
       <BackgroundPaths />
       
       {/* Content with higher z-index */}
-      <div className="relative z-10 space-y-8">{/* Hero Section */}
+      <div className="relative z-10 space-y-8 px-4 md:px-8 lg:px-12">{/* Hero Section */}
       <div className="grid md:grid-cols-2 gap-6 items-center">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
@@ -101,7 +101,7 @@ export default function Home(){
               <ul className="space-y-2 text-sm dark:dark:text-slate-400 text-slate-600 text-slate-600">
                 <li className="flex gap-2">
                   <span className="text-accent">→</span>
-                  <span>60-70% reduction in schema change cycle time (Lululemon)</span>
+                  <span>60-70% reduction in schema change cycle time</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent">→</span>
