@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   * {
@@ -15,34 +16,66 @@
     scroll-behavior: smooth;
   }
 
+  /* Dark theme (default) */
+  html,
   body {
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(180deg, #071127 0%, #071424 100%);
-    background-attachment: fixed;
+    background: #000000 !important;
     color: #f1f5f9;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Light theme */
+  html.light,
+  html.light body {
+    background: #ffffff;
+    color: #0f172a;
   }
 }
 
 @layer components {
   .container {
-    max-width: 1100px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
+  @media (min-width: 768px) {
+    .container {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      padding-left: 6rem;
+      padding-right: 6rem;
+    }
+  }
+
+  /* Dark theme glass card */
   .glass-card {
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 1px solid rgba(75, 85, 99, 0.3);
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Light theme glass card */
+  html.light .glass-card {
+    background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+    border: 1px solid rgba(209, 213, 219, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -55,24 +88,38 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Dark theme */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0f1a;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #22c1c3, #60a5fa);
+  background: linear-gradient(180deg, #1a1a1a, #2a2a2a);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #60a5fa, #22c1c3);
+  background: linear-gradient(180deg, #2a2a2a, #3a3a3a);
 }
 
+/* Custom scrollbar - Light theme */
+html.light ::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d1d5db, #9ca3af);
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9ca3af, #6b7280);
+}
+
+/* Selection - Dark theme */
 ::selection {
   background: rgba(34, 193, 195, 0.3);
   color: #ffffff;
@@ -81,4 +128,15 @@
 ::-moz-selection {
   background: rgba(34, 193, 195, 0.3);
   color: #ffffff;
+}
+
+/* Selection - Light theme */
+html.light ::selection {
+  background: rgba(34, 193, 195, 0.2);
+  color: #000000;
+}
+
+html.light ::-moz-selection {
+  background: rgba(34, 193, 195, 0.2);
+  color: #000000;
 }

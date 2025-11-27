@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import GooeyNav from "./GooeyNav";
 import ResumeButton from "./ResumeButton";
+import ThemeToggle from "./ThemeToggle";
 import "./GooeyNav.css";
 
 const links = [
@@ -34,7 +35,7 @@ export default function Navbar() {
           </div>
           <div>
             <div className="text-lg font-semibold">Atharva Joshi</div>
-            <div className="text-xs text-slate-400">
+            <div className="text-xs dark:text-slate-400 text-slate-600">
               GenAI Engineer & Data Scientist
             </div>
           </div>
@@ -48,6 +49,7 @@ export default function Navbar() {
             ))}
           </GooeyNav>
 
+          <ThemeToggle />
           <ResumeButton variant="navbar" className="ml-4" />
         </div>
 
@@ -113,7 +115,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="relative w-[80%] max-w-sm h-full bg-[rgba(10,15,25,0.7)] backdrop-blur-3xl border-l border-[rgba(255,255,255,0.1)] p-8 flex flex-col items-start"
+              className="relative w-[80%] max-w-sm h-full dark:bg-[rgba(10,15,25,0.95)] bg-[rgba(255,255,255,0.95)] backdrop-blur-3xl dark:border-l dark:border-[rgba(255,255,255,0.1)] border-l border-[rgba(0,0,0,0.1)] p-8 flex flex-col items-start"
             >
               <nav className="flex flex-col gap-6 mt-12 w-full">
                 {links.map((l) => (
@@ -121,17 +123,18 @@ export default function Navbar() {
                     key={l.to}
                     to={l.to}
                     onClick={() => setOpen(false)}
-                    className="text-2xl font-semibold text-slate-100 hover:text-white transition"
+                    className="text-2xl font-semibold dark:text-slate-100 text-slate-900 hover:text-white transition"
                   >
                     {l.label}
                   </Link>
                 ))}
                 
-                <div className="mt-8">
-                  <ResumeButton variant="primary" className="w-full justify-center" />
+                <div className="mt-8 flex items-center gap-4">
+                  <ThemeToggle />
+                  <ResumeButton variant="primary" className="flex-1 justify-center" />
                 </div>
 
-                <div className="mt-8 flex gap-4 text-slate-400">
+                <div className="mt-8 flex gap-4 dark:text-slate-400 text-slate-600">
                   <a href="https://github.com/attharva-j" target="_blank" rel="noreferrer">
                     GitHub
                   </a>
@@ -156,7 +159,7 @@ function NavLink({ to, label, active }) {
     <Link
       to={to}
       className={`relative px-4 py-2 text-sm font-semibold transition-all duration-300 ${
-        active ? "text-white" : "text-slate-300 hover:text-white"
+        active ? "text-white" : "dark:text-slate-300 text-slate-700 hover:text-white"
       }`}
     >
       {label}
