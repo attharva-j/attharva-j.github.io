@@ -6,13 +6,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ground: 'var(--ground)',
-        raised: 'var(--raised)',
-        rule: 'var(--rule)',
-        'rule-strong': 'var(--rule-strong)',
-        fg: 'var(--fg)',
-        dim: 'var(--dim)',
-        signal: 'var(--signal)',
+        ground: 'rgb(var(--ground) / <alpha-value>)',
+        raised: 'rgb(var(--raised) / <alpha-value>)',
+        rule: 'rgb(var(--rule) / <alpha-value>)',
+        'rule-strong': 'rgb(var(--rule-strong) / <alpha-value>)',
+        fg: 'rgb(var(--fg) / <alpha-value>)',
+        dim: 'rgb(var(--dim) / <alpha-value>)',
+        signal: 'rgb(var(--signal) / <alpha-value>)',
         // Legacy keys, used only by pre-redesign sections still awaiting their stage.
         primary: '#0f1724',
         accent: '#22c1c3',

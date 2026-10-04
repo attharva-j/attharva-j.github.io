@@ -1,59 +1,73 @@
 import React from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
-import { ThemeProvider } from './contexts/ThemeContext'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import About from './pages/About'
-import Projects from './pages/Projects'
-import Experience from './pages/Experience'
-import Skills from './pages/Skills'
-import Contact from './pages/Contact'
+import { MotionConfig } from 'framer-motion'
+import { SmoothScroll } from './motion/SmoothScroll'
+import { SECTIONS } from './lib/sections'
+import { useActiveSection } from './hooks/useActiveSection'
+import { useRouteScroll } from './hooks/useRouteScroll'
+import Navbar from './components/shell/Navbar'
+import PipelineRail from './components/shell/PipelineRail'
+import Section from './components/shell/Section'
+// Legacy sections: replaced one by one in later stages.
+import LegacyHome from './pages/Home'
+import LegacyAbout from './pages/About'
+import LegacyProjects from './pages/Projects'
+import LegacyExperience from './pages/Experience'
+import LegacySkills from './pages/Skills'
+import LegacyContact from './pages/Contact'
+
+const SECTION_IDS = SECTIONS.map((section) => section.id)
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
+    <MotionConfig reducedMotion="user">
+      <SmoothScroll>
+        <Site />
+      </SmoothScroll>
+    </MotionConfig>
   )
 }
 
-function AppContent() {
-  const location = useLocation()
+function Site() {
+  const activeId = useActiveSection(SECTION_IDS)
+  useRouteScroll()
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1 py-6">
-        <div className={location.pathname === '/' ? 'w-full' : 'container'}>
-          <AnimatePresence mode="wait" initial={false}>
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-              <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-              <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
-              <Route path="/experience" element={<PageWrapper><Experience /></PageWrapper>} />
-              <Route path="/skills" element={<PageWrapper><Skills /></PageWrapper>} />
-              <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-              <Route path="*" element={<PageWrapper><Home /></PageWrapper>} />
-            </Routes>
-          </AnimatePresence>
-        </div>
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <Navbar activeId={activeId} />
+      <PipelineRail />
+      <main id="main-content" tabIndex={-1} className="outline-none">
+        <Section id="top" className="pt-nav">
+          <LegacyHome />
+        </Section>
+        <Section id="about" className="section-y">
+          <div className="container">
+            <LegacyAbout />
+          </div>
+        </Section>
+        <Section id="projects" className="section-y">
+          <div className="container">
+            <LegacyProjects />
+          </div>
+        </Section>
+        <Section id="experience" className="section-y">
+          <div className="container">
+            <LegacyExperience />
+          </div>
+        </Section>
+        <Section id="skills" className="section-y">
+          <div className="container">
+            <LegacySkills />
+          </div>
+        </Section>
+        <Section id="contact" className="section-y">
+          <div className="container">
+            <LegacyContact />
+          </div>
+        </Section>
       </main>
-      <Footer />
-    </div>
-  )
-}
-
-function PageWrapper({ children }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.38 }}
-    >
-      {children}
-    </motion.div>
+    </>
   )
 }

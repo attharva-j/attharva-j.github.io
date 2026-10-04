@@ -8,17 +8,17 @@
 */
 :root {
   /* Surfaces */
-  --ground: #0c0d0f;
-  --raised: #15171a;
-  --rule: #2a2d33;
-  --rule-strong: #3d4148;
+  --ground: 12 13 15; /* #0c0d0f */
+  --raised: 21 23 26; /* #15171a */
+  --rule: 42 45 51; /* #2a2d33 */
+  --rule-strong: 61 65 72; /* #3d4148 */
 
   /* Text */
-  --fg: #e9eaec;
-  --dim: #8e939b;
+  --fg: 233 234 236; /* #e9eaec */
+  --dim: 142 147 155; /* #8e939b */
 
   /* The single accent. Caret, active nav, focus, one key figure per section. */
-  --signal: #e5583a;
+  --signal: 229 88 58; /* #e5583a */
 
   /* Motion: shared curves and durations (mirrored in src/motion/tokens.js) */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -43,8 +43,8 @@
 
 @layer base {
   html {
-    background: var(--ground);
-    color: var(--fg);
+    background: rgb(var(--ground));
+    color: rgb(var(--fg));
     font-family: theme('fontFamily.sans');
     font-size: 100%;
     font-optical-sizing: auto;
@@ -56,8 +56,8 @@
 
   body {
     min-height: 100dvh;
-    background: var(--ground);
-    color: var(--fg);
+    background: rgb(var(--ground));
+    color: rgb(var(--fg));
     font-size: 1.0625rem;
     line-height: 1.65;
     overflow-x: clip;
@@ -89,13 +89,13 @@
   }
 
   ::selection {
-    background: var(--signal);
-    color: var(--ground);
+    background: rgb(var(--signal));
+    color: rgb(var(--ground));
   }
 
   /* One focus treatment for every interactive element: a hard signal outline. */
   :focus-visible {
-    outline: 2px solid var(--signal);
+    outline: 2px solid rgb(var(--signal));
     outline-offset: 3px;
     border-radius: 0;
   }
@@ -104,8 +104,16 @@
     outline: none;
   }
 
+  /* Headings and main receive focus programmatically after navigation, for
+     screen readers. They are not controls, so no ring. */
+  h1[tabindex='-1']:focus,
+  h2[tabindex='-1']:focus,
+  main[tabindex='-1']:focus {
+    outline: none;
+  }
+
   html {
-    scrollbar-color: var(--rule-strong) var(--ground);
+    scrollbar-color: rgb(var(--rule-strong)) rgb(var(--ground));
     scrollbar-width: thin;
   }
 }
@@ -126,7 +134,7 @@
     line-height: 1.5;
     letter-spacing: 0;
     font-variant-numeric: tabular-nums;
-    color: var(--dim);
+    color: rgb(var(--dim));
   }
 
   .figure {
@@ -142,8 +150,8 @@
     top: 0.75rem;
     z-index: var(--z-skip);
     padding: 0.625rem 1rem;
-    background: var(--fg);
-    color: var(--ground);
+    background: rgb(var(--fg));
+    color: rgb(var(--ground));
     font-size: 0.875rem;
     font-weight: 600;
     transform: translateY(-200%);
@@ -152,6 +160,196 @@
 
   .skip-link:focus-visible {
     transform: translateY(0);
+  }
+
+  /* Vertical rhythm for every section: spacious, slightly heavier at the bottom. */
+  .section-y {
+    padding-top: clamp(6rem, 11vw, 11rem);
+    padding-bottom: clamp(6.5rem, 12vw, 12.5rem);
+  }
+
+  /* Buttons: wipe fill + rolling label. See components/ui/Button.jsx */
+  .btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    height: 3rem;
+    padding-inline: 1.375rem;
+    overflow: hidden;
+    font-size: 0.9375rem;
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn__fill {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: translateY(101%);
+    transition: transform var(--dur-base) var(--ease-in-out);
+  }
+
+  .btn__label {
+    position: relative;
+    display: block;
+    height: 1.5em;
+    overflow: hidden;
+    line-height: 1.5em;
+  }
+
+  .btn__row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform var(--dur-base) var(--ease-in-out);
+  }
+
+  .btn__row--alt {
+    position: absolute;
+    inset: 0;
+    transform: translateY(100%);
+  }
+
+  .btn__icon {
+    flex: none;
+  }
+
+  .btn--primary {
+    background: rgb(var(--fg));
+    color: rgb(var(--ground));
+  }
+
+  .btn--primary .btn__fill {
+    background: rgb(var(--signal));
+  }
+
+  .btn--secondary {
+    color: rgb(var(--fg));
+    box-shadow: inset 0 0 0 1px rgb(var(--rule-strong));
+  }
+
+  .btn--secondary .btn__fill {
+    background: rgb(var(--fg));
+  }
+
+  .btn--secondary .btn__row--alt {
+    color: rgb(var(--ground));
+  }
+
+  .btn:focus-visible .btn__fill {
+    transform: translateY(0);
+  }
+
+  .btn:focus-visible .btn__row:first-child {
+    transform: translateY(-100%);
+  }
+
+  .btn:focus-visible .btn__row--alt {
+    transform: translateY(0);
+  }
+
+  @media (hover: hover) {
+    .btn:hover .btn__fill {
+      transform: translateY(0);
+    }
+
+    .btn:hover .btn__row:first-child {
+      transform: translateY(-100%);
+    }
+
+    .btn:hover .btn__row--alt {
+      transform: translateY(0);
+    }
+  }
+
+  /* Navigation links: an underline that draws in from the left and exits right. */
+  .navlink {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 480;
+    letter-spacing: -0.005em;
+  }
+
+  .navlink__text {
+    opacity: 0.62;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .navlink[aria-current='true'] .navlink__text,
+  .navlink:hover .navlink__text,
+  .navlink:focus-visible .navlink__text {
+    opacity: 1;
+  }
+
+  .navlink::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.5rem;
+    height: 1px;
+    background: rgb(var(--fg));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--dur-base) var(--ease-in-out);
+  }
+
+  @media (hover: hover) {
+    .navlink:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
+  /* Inline text links: a resting hairline, overdrawn in signal on hover. */
+  .textlink {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.15em;
+  }
+
+  .textlink::before,
+  .textlink::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+  }
+
+  .textlink::before {
+    background: rgb(var(--rule-strong));
+  }
+
+  .textlink::after {
+    background: rgb(var(--signal));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--dur-base) var(--ease-in-out);
+  }
+
+  .textlink:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  @media (hover: hover) {
+    .textlink:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
   }
 }
 
@@ -182,10 +380,6 @@ html.lenis body {
 
 .lenis [data-lenis-prevent] {
   overscroll-behavior: contain;
-}
-
-.lenis.lenis-smooth iframe {
-  pointer-events: none;
 }
 
 /* Reduced motion: no smooth scroll, no CSS transitions beyond instant feedback. */

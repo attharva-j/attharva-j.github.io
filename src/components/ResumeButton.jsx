@@ -1,63 +1,108 @@
-// src/components/ResumeButton.jsx
-import React, { useState } from 'react'
-import { FileText, Download } from 'lucide-react'
-import ResumePreview from './ResumePreview'
+import React, { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowUpRight, DownloadSimple, X } from '@phosphor-icons/react'
+import Button from './ui/Button'
+import { identity, resume } from '../content'
+import { useOverlay } from '../hooks/useOverlay'
+import { ease, duration } from '../motion/tokens'
 
-export default function ResumeButton({ 
-  variant = 'primary', 
-  showIcon = true,
-  className = '' 
-}) {
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+// Legacy variant names map onto the two button styles.
+const VARIANTS = { primary: 'primary', navbar: 'secondary', secondary: 'secondary', ghost: 'secondary' }
 
-  const variantStyles = {
-    primary: 'bg-gradient-to-r from-accent to-accent2 text-slate-900 hover:shadow-lg hover:shadow-accent/20',
-    secondary: 'border-2 border-accent/30 text-slate-200 hover:bg-accent/10',
-    ghost: 'bg-slate-800/50 text-slate-200 hover:bg-slate-800',
-    navbar: 'bg-gradient-to-r from-accent to-accent2 text-slate-900'
-  }
-
-  const handleClick = (e) => {
-    e.preventDefault()
-    setIsPreviewOpen(true)
-  }
+export default function ResumeButton({ variant = 'secondary', className = '', label = 'Resume' }) {
+  const [open, setOpen] = useState(false)
 
   return (
     <>
-      <button
-        onClick={handleClick}
-        className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${variantStyles[variant]} ${className}`}
+      <Button
+        variant={VARIANTS[variant] ?? 'secondary'}
+        className={className}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
       >
-        {showIcon && <FileText size={18} />}
-        <span>Resume</span>
-      </button>
-
-      <ResumePreview 
-        isOpen={isPreviewOpen} 
-        onClose={() => setIsPreviewOpen(false)} 
-      />
+        {label}
+      </Button>
+      <ResumeDialog open={open} onClose={() => setOpen(false)} />
     </>
   )
 }
 
-// Quick download button variant (just downloads without preview)
-export function ResumeDownloadButton({ className = '' }) {
-  const handleDownload = () => {
-    const link = document.createElement('a')
-    link.href = '/resume.pdf'
-    link.download = 'Atharva_Joshi_Resume.pdf'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
+export function ResumeDialog({ open, onClose }) {
+  return createPortal(
+    <AnimatePresence>{open && <ResumePanel onClose={onClose} />}</AnimatePresence>,
+    document.body
+  )
+}
+
+function ResumePanel({ onClose }) {
+  const panelRef = useRef(null)
+  const closeRef = useRef(null)
+  const [loaded, setLoaded] = useState(false)
+  useOverlay(panelRef, true, onClose, closeRef)
 
   return (
-    <button
-      onClick={handleDownload}
-      className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold bg-gradient-to-r from-accent to-accent2 text-slate-900 hover:shadow-lg hover:shadow-accent/20 transition-all ${className}`}
+    <motion.div
+      className="fixed inset-0 z-overlay flex items-stretch justify-center bg-ground/90 p-0 md:items-center md:p-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: duration.base, ease: ease.out }}
+      onMouseDown={(event) => event.target === event.currentTarget && onClose()}
     >
-      <Download size={18} />
-      <span>Download Resume</span>
-    </button>
+      <motion.div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="resume-title"
+        aria-describedby="resume-subtitle"
+        className="flex h-full w-full max-w-5xl flex-col bg-raised shadow-[0_0_0_1px_rgb(var(--rule))] md:h-[88dvh]"
+        initial={{ y: 32, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 16, opacity: 0 }}
+        transition={{ duration: duration.slow, ease: ease.out }}
+      >
+        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-rule px-5 py-4 md:px-7">
+          <div>
+            <h2 id="resume-title" className="text-lg tracking-tight">
+              Resume
+            </h2>
+            <p id="resume-subtitle" className="meta">
+              {identity.titles.resume}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" href={resume.href} target="_blank" rel="noopener noreferrer" icon={ArrowUpRight}>
+              Open
+            </Button>
+            <Button variant="primary" href={resume.href} download={resume.filename} icon={DownloadSimple}>
+              Download
+            </Button>
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={onClose}
+              aria-label="Close resume"
+              className="grid h-12 w-12 place-items-center text-fg/70 transition-transform duration-fast ease-out hover:rotate-90 active:translate-y-px"
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+          </div>
+        </header>
+
+        <div className="relative flex-1 bg-ground">
+          <div className="absolute inset-0 grid place-items-center p-8 text-center">
+            <p className="meta max-w-xs">The preview is not available on this device. Use Open or Download above.</p>
+          </div>
+          <iframe
+            src={resume.href}
+            title={`${identity.titles.resume}, resume PDF`}
+            onLoad={() => setLoaded(true)}
+            className={`relative hidden h-full w-full border-0 bg-white transition-opacity duration-base ease-out md:block ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        </div>
+      </motion.div>
+    </motion.div>
   )
 }
