@@ -43,6 +43,8 @@
 
 @layer base {
   html {
+    /* Positioned so scroll-linked offsets measure against the document. */
+    position: relative;
     background: rgb(var(--ground));
     color: rgb(var(--fg));
     font-family: theme('fontFamily.sans');
@@ -160,6 +162,18 @@
 
   .skip-link:focus-visible {
     transform: translateY(0);
+  }
+
+  /* Hero name scale: fills the phone width; on larger screens it is capped by
+     viewport height too, so the actions always land above the fold. */
+  .hero {
+    --name-size: clamp(3.5rem, 18.5vw, 6.5rem);
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      --name-size: clamp(3.5rem, min(14.5vw, 21vh), 15.5rem);
+    }
   }
 
   /* Vertical rhythm for every section: spacious, slightly heavier at the bottom. */

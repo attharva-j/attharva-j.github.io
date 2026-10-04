@@ -22,12 +22,10 @@ export function useRouteScroll() {
       return undefined
     }
 
-    const frame = requestAnimationFrame(() => {
-      // Read and clear inside the frame: StrictMode's discarded first effect
-      // run is cancelled before it gets here, so it cannot consume the flag.
-      const immediate = firstRun.current
-      firstRun.current = false
-      const target = section.id === 'top' ? 0 : `#${section.id}`
+    let cancelled = false
+    const target = section.id === 'top' ? 0 : `#${section.id}`
+    const go = (immediate) => {
+      if (cancelled) return
       scrollToRef.current(target, {
         immediate,
         onComplete: () => {
@@ -37,8 +35,26 @@ export function useRouteScroll() {
           heading?.focus({ preventScroll: true })
         }
       })
+    }
+
+    const frame = requestAnimationFrame(() => {
+      // Read and clear inside the frame: StrictMode's discarded first effect
+      // run is cancelled before it gets here, so it cannot consume the flag.
+      const immediate = firstRun.current
+      firstRun.current = false
+      if (!immediate) {
+        go(false)
+        return
+      }
+      // Deep link on first load: jump now, then again once web fonts have
+      // swapped in, since the swap changes the height of everything above.
+      go(true)
+      document.fonts?.ready.then(() => requestAnimationFrame(() => go(true)))
     })
-    return () => cancelAnimationFrame(frame)
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(frame)
+    }
     // location.key re-runs the effect when the same link is clicked twice.
   }, [location.pathname, location.key, navigate])
 }

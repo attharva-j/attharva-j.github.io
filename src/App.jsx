@@ -7,8 +7,8 @@ import { useRouteScroll } from './hooks/useRouteScroll'
 import Navbar from './components/shell/Navbar'
 import PipelineRail from './components/shell/PipelineRail'
 import Section from './components/shell/Section'
+import Hero from './components/sections/Hero'
 // Legacy sections: replaced one by one in later stages.
-import LegacyHome from './pages/Home'
 import LegacyAbout from './pages/About'
 import LegacyProjects from './pages/Projects'
 import LegacyExperience from './pages/Experience'
@@ -39,9 +39,7 @@ function Site() {
       <Navbar activeId={activeId} />
       <PipelineRail />
       <main id="main-content" tabIndex={-1} className="outline-none">
-        <Section id="top" className="pt-nav">
-          <LegacyHome />
-        </Section>
+        <Hero />
         <Section id="about" className="section-y">
           <div className="container">
             <LegacyAbout />

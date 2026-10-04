@@ -59,6 +59,19 @@ module.exports = {
       },
       borderRadius: {
         none: '0'
+      },
+      keyframes: {
+        'caret-blink': {
+          '0%, 100%': { opacity: '1' },
+          '25%, 75%': { opacity: '0' },
+          '50%': { opacity: '1' }
+        }
+      },
+      animation: {
+        // Two blinks, then the caret rests solid.
+        'caret-blink': 'caret-blink 1.2s steps(1, end) 1',
+        // Waiting for the first token: a slow, steady blink.
+        'caret-wait': 'caret-blink 1.6s steps(1, end) infinite'
       }
     }
   },
