@@ -3,3 +3,10 @@
 /dist
 ./vscode/
 .vscode/
+
+./.agents/
+.agents/
+./.impeccable/
+.impeccable/
+./.kilo/
+.kilo/
