@@ -1,0 +1,109 @@
+// Content guard. Every human-readable string from the pre-redesign commit
+// (scripts/content-baseline.json) must be accounted for in exactly one way:
+//   1. present verbatim in src/content/index.js
+//   2. changed by an owner-approved edit (EDITS), whose replacement must be present
+//   3. removed with owner approval (REMOVED)
+//   4. UI chrome the redesign may rename or drop (CHROME)
+// Anything else fails the build.
+import { readFileSync } from 'node:fs'
+import * as content from '../src/content/index.js'
+
+const baseline = JSON.parse(readFileSync(new URL('./content-baseline.json', import.meta.url), 'utf8'))
+
+// Owner-approved edits: original -> replacement.
+const EDITS = {
+  // Em-dash removal (approved: "remove em-dashes")
+  'Atharva Joshi — GenAI Engineer': 'Atharva Joshi - GenAI Engineer',
+  'Atharva Joshi — GenAI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines.':
+    'Atharva Joshi, GenAI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines.',
+  'Every AI system I build is designed for production from day one — auditable, observable, and maintainable.':
+    'Every AI system I build is designed for production from day one: auditable, observable, and maintainable.',
+  'Focused on driving tangible business outcomes — from cost savings to revenue growth and operational efficiency.':
+    'Focused on driving tangible business outcomes, from cost savings to revenue growth and operational efficiency.',
+  '. My work spans the full lifecycle — from architecture and development to deployment and observability.':
+    '. My work spans the full lifecycle, from architecture and development to deployment and observability.',
+  '— sharing enterprise AI implementation strategies and real-world case studies.':
+    ', sharing enterprise AI implementation strategies and real-world case studies.',
+  "When I'm not building AI systems, I'm exploring the latest research in LLMs and agentic systems, contributing to open-source ML projects, and mentoring junior engineers. I'm passionate about making AI accessible and practical — demystifying complex concepts and showing how they translate to real business value.":
+    "When I'm not building AI systems, I'm exploring the latest research in LLMs and agentic systems, contributing to open-source ML projects, and mentoring junior engineers. I'm passionate about making AI accessible and practical, demystifying complex concepts and showing how they translate to real business value.",
+  'AI-Powered Workflow Automation — Leading Athleisure Brand': 'AI-Powered Workflow Automation - Leading Athleisure Brand',
+  // Years of experience corrected (approved: "5+ is the correct number")
+  '4+ years building enterprise-grade AI/ML systems with proven scalability and measurable business impact.':
+    '5+ years building enterprise-grade AI/ML systems with proven scalability and measurable business impact.',
+  // Snowflake talk is done (approved: mark as completed)
+  'Upcoming Conference Presentation': 'Completed Conference Presentation',
+  // Medium handle (approved: "change to @athex25")
+  '@atharvajoshi': '@athex25',
+  // Same destinations, one canonical URL each
+  'https://www.medium.com/@athex25': 'https://medium.com/@athex25',
+  'https://www.linkedin.com/in/attharvaj3147': 'https://linkedin.com/in/attharvaj3147'
+}
+
+// Owner-approved removals.
+const REMOVED = {
+  'UI Component Credits:': 'credit removed (approved)',
+  'https://21st.dev': 'credit removed (approved)',
+  'Altimetrik Corp. — Recognition for exceptional performance and innovation in GenAI engineering':
+    'duplicate of the About recognition entry (approved: show one)',
+  '"Gaining Customer Insights and Loyalty with Generative AI" — Presenting enterprise AI implementation strategies':
+    'duplicate of the About recognition entry (approved: show one)'
+}
+
+// UI chrome: section headings that only name a section, button labels, and
+// visualization controls. Approved as redesignable (answer 8).
+const CHROME = new Set([
+  'View Projects', 'Get in Touch', 'View All Projects →', 'Send Email', 'Connect on LinkedIn', 'Quick Actions',
+  'Expertise', 'Key Achievements', 'Recent Impact', 'About Me', 'Core Principles', 'Education', 'Recognition',
+  'Professional Journey', 'Beyond Work', 'Featured Projects', 'Business Impact', 'Key Highlights',
+  'Technology Stack', 'Professional Experience', 'Key Impact', 'Key Contributions', 'Awards & Recognition',
+  'Skills & Expertise', 'Skills × Projects Network', 'Explore Network', 'Hover to explore connections',
+  'Hover to explore • Drag nodes • Scroll to zoom • Click projects for details', 'Minimize', 'Maximize',
+  'Maximize for better readability', 'Skills (', 'Projects (6)', 'Total connections:', 'Location',
+  'Typical Response Time', 'Open to Collaboration', 'Home', 'About', 'Projects', 'Experience', 'Skills', 'Contact',
+  'Close menu', 'Open menu', 'Resume Preview', 'Open in new tab', 'Open', 'Download', 'Close',
+  "If the preview doesn't load, you can:", 'Download PDF', 'Open in New Tab',
+  // Rendering artifacts from the old D3 graph and regex labels, not copy.
+  '$1', '100%', '200%', '600', '700', '500', '24', '14', '0 0 24 24', 'viewBox', 'refX', 'refY', 'markerWidth',
+  'markerHeight', 'feGaussianBlur', 'stdDeviation', 'coloredBlur', 'feMerge', 'feMergeNode', 'SourceGraphic',
+  'currentColor'
+])
+
+const corpus = []
+const collect = (value) => {
+  if (typeof value === 'string') corpus.push(value)
+  else if (Array.isArray(value)) {
+    value.forEach(collect)
+    const flat = value.map((v) => (typeof v === 'string' ? v : v && (v.strong || v.em))).filter(Boolean)
+    if (flat.length === value.length) corpus.push(flat.join(''), flat.join(' '))
+  } else if (value && typeof value === 'object') {
+    Object.entries(value).forEach(([key, v]) => {
+      corpus.push(key)
+      collect(v)
+    })
+  }
+}
+collect(content)
+
+const present = (s) => corpus.some((c) => c.includes(s))
+const problems = []
+let checked = 0
+
+for (const [file, strings] of Object.entries(baseline.strings)) {
+  for (const s of strings) {
+    checked++
+    if (CHROME.has(s) || REMOVED[s]) continue
+    if (EDITS[s]) {
+      if (!present(EDITS[s])) problems.push(`${file}: approved edit missing -> "${EDITS[s]}"`)
+      continue
+    }
+    if (!present(s)) problems.push(`${file}: missing -> "${s}"`)
+  }
+}
+
+corpus.filter((c) => /[—–]/.test(c)).forEach((c) => problems.push(`em/en-dash in content -> "${c}"`))
+
+if (problems.length) {
+  console.error(`Content check failed (${problems.length}):\n` + problems.map((p) => `  - ${p}`).join('\n'))
+  process.exit(1)
+}
+console.log(`Content check passed: ${checked} baseline strings accounted for (commit ${baseline.commit}).`)

@@ -1,142 +1,201 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Inference: design tokens.
+  One theme (dark), one accent (signal), zero corner radius.
+*/
+:root {
+  /* Surfaces */
+  --ground: #0c0d0f;
+  --raised: #15171a;
+  --rule: #2a2d33;
+  --rule-strong: #3d4148;
+
+  /* Text */
+  --fg: #e9eaec;
+  --dim: #8e939b;
+
+  /* The single accent. Caret, active nav, focus, one key figure per section. */
+  --signal: #e5583a;
+
+  /* Motion: shared curves and durations (mirrored in src/motion/tokens.js) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.7, 0, 0.2, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 600ms;
+
+  /* Layout */
+  --gutter: clamp(1rem, 4.2vw, 4.5rem);
+  --nav-h: 4.25rem;
+  --rail-x: calc(var(--gutter) / 2);
+
+  /* Layers */
+  --z-rail: 10;
+  --z-nav: 40;
+  --z-overlay: 60;
+  --z-skip: 70;
+
+  color-scheme: dark;
+}
 
 @layer base {
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  html {
+    background: var(--ground);
+    color: var(--fg);
+    font-family: theme('fontFamily.sans');
+    font-size: 100%;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--ground);
+    color: var(--fg);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 560;
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--ground);
+  }
+
+  /* One focus treatment for every interactive element: a hard signal outline. */
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 0;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 
   html {
-    scroll-behavior: smooth;
-  }
-
-  /* Dark theme (default) */
-  html,
-  body {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: #000000 !important;
-    color: #f1f5f9;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  /* Light theme */
-  html.light,
-  html.light body {
-    background: #ffffff;
-    color: #0f172a;
+    scrollbar-color: var(--rule-strong) var(--ground);
+    scrollbar-width: thin;
   }
 }
 
 @layer components {
-  .container {
+  /* Page shell: max width, side gutters, and room for the pipeline rail on desktop. */
+  .shell {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    max-width: theme('maxWidth.shell');
+    margin-inline: auto;
+    padding-inline: var(--gutter);
   }
 
-  @media (min-width: 768px) {
-    .container {
-      padding-left: 4rem;
-      padding-right: 4rem;
-    }
+  /* Mono metadata: dates, figures, stacks. Tabular so numbers align. */
+  .meta {
+    font-family: theme('fontFamily.mono');
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+    color: var(--dim);
   }
 
-  @media (min-width: 1280px) {
-    .container {
-      padding-left: 6rem;
-      padding-right: 6rem;
-    }
+  .figure {
+    font-family: theme('fontFamily.mono');
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
   }
 
-  /* Dark theme glass card */
-  .glass-card {
-    background: linear-gradient(135deg, rgba(26, 26, 26, 0.2) 0%, rgba(10, 10, 10, 0.2) 100%);
-    border: 1px solid rgba(75, 85, 99, 0.3);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: background 0.3s ease, border-color 0.3s ease;
+  /* Skip link sits off-canvas until focused. */
+  .skip-link {
+    position: fixed;
+    left: var(--gutter);
+    top: 0.75rem;
+    z-index: var(--z-skip);
+    padding: 0.625rem 1rem;
+    background: var(--fg);
+    color: var(--ground);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform: translateY(-200%);
+    transition: transform var(--dur-base) var(--ease-out);
   }
 
-  /* Light theme glass card */
-  html.light .glass-card {
-    background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
-    border: 1px solid rgba(209, 213, 219, 0.5);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  .skip-link:focus-visible {
+    transform: translateY(0);
   }
 }
 
 @layer utilities {
-  .gradient-text {
-    background: linear-gradient(135deg, #22c1c3 0%, #60a5fa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Reserve space for descenders on tight display leading. */
+  .descender-safe {
+    padding-bottom: 0.08em;
   }
 }
 
-/* Custom scrollbar - Dark theme */
-::-webkit-scrollbar {
-  width: 10px;
+/* Lenis: native-feeling smooth scroll. Recommended base rules. */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
 }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #1a1a1a, #2a2a2a);
-  border-radius: 5px;
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #2a2a2a, #3a3a3a);
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
-/* Custom scrollbar - Light theme */
-html.light ::-webkit-scrollbar-track {
-  background: #f3f4f6;
-}
-
-html.light ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #d1d5db, #9ca3af);
-}
-
-html.light ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #9ca3af, #6b7280);
-}
-
-/* Selection - Dark theme */
-::selection {
-  background: rgba(34, 193, 195, 0.3);
-  color: #ffffff;
-}
-
-::-moz-selection {
-  background: rgba(34, 193, 195, 0.3);
-  color: #ffffff;
-}
-
-/* Selection - Light theme */
-html.light ::selection {
-  background: rgba(34, 193, 195, 0.2);
-  color: #000000;
-}
-
-html.light ::-moz-selection {
-  background: rgba(34, 193, 195, 0.2);
-  color: #000000;
+/* Reduced motion: no smooth scroll, no CSS transitions beyond instant feedback. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
