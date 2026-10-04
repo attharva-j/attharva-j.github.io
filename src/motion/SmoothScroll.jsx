@@ -28,14 +28,14 @@ export function SmoothScroll({ children }) {
   }, [reduceMotion])
 
   const scrollTo = useCallback(
-    (target, { immediate = false, onComplete } = {}) => {
+    (target, { immediate = false, offset = 0, onComplete } = {}) => {
       const element = target === 0 ? null : resolveTarget(target)
       if (target !== 0 && !element) return
       if (lenis && !immediate) {
-        lenis.scrollTo(target === 0 ? 0 : element, { duration: 1.25, easing: travelEasing, onComplete })
+        lenis.scrollTo(target === 0 ? 0 : element, { offset, duration: 1.25, easing: travelEasing, onComplete })
         return
       }
-      const top = target === 0 ? 0 : element.getBoundingClientRect().top + window.scrollY
+      const top = target === 0 ? 0 : element.getBoundingClientRect().top + window.scrollY + offset
       if (lenis) lenis.scrollTo(top, { immediate: true, force: true })
       else window.scrollTo({ top, behavior: 'auto' })
       onComplete?.()
