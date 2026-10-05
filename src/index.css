@@ -20,6 +20,9 @@
   /* The single accent. Caret, active nav, focus, one key figure per section. */
   --signal: 229 88 58; /* #e5583a */
 
+  /* About only: warm studio graphite for the wellness surface. */
+  --studio: 23 20 18; /* #171412 */
+
   /* Motion: shared curves and durations (mirrored in src/motion/tokens.js) */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.7, 0, 0.2, 1);
@@ -224,6 +227,18 @@
      on the same instrument surface as the rest of the page. */
   .portrait-scanlines {
     background: repeating-linear-gradient(to bottom, rgb(var(--ground) / 0.42) 0 1px, transparent 1px 3px);
+  }
+
+  /* About: the studio surface. Same dark family, a few degrees warmer, with a
+     fine vertical rib like performance knit. Both layers fade in and out over
+     the section's top and bottom so there is no seam with its neighbours. */
+  .about-studio {
+    --studio-fade: linear-gradient(to bottom, transparent 0%, #000 22%, #000 80%, transparent 100%);
+    background:
+      repeating-linear-gradient(to right, rgb(var(--fg) / 0.026) 0 1px, transparent 1px 7px),
+      rgb(var(--studio));
+    -webkit-mask-image: var(--studio-fade);
+    mask-image: var(--studio-fade);
   }
 
   /* Vertical rhythm for every section: spacious, slightly heavier at the bottom. */

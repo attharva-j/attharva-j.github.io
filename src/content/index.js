@@ -6,6 +6,7 @@
 //   - Snowflake Summit talk marked as completed
 //   - Medium handle displayed as @athex25
 //   - 21st.dev footer credit removed
+//   - About intro names the current company as Alo (owner request; About only)
 //   - home-page "Key Achievements" and "Recent Impact" removed: each repeated a
 //     project, stat or recognition entry in different words (approved: show one)
 //
@@ -98,7 +99,8 @@ export const about = {
     ],
     [
       'Currently at ',
-      { strong: 'Altimetrik' },
+      // Owner-approved: current company in the About section is Alo.
+      { strong: 'Alo' },
       ", I'm leading GenAI initiatives for Fortune 500 clients, architecting systems that have delivered ",
       { strong: '$900K+ in cost savings' },
       ' and ',

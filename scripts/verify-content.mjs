@@ -5,6 +5,10 @@
 //   3. removed with owner approval (REMOVED)
 //   4. UI chrome the redesign may rename or drop (CHROME)
 // Anything else fails the build.
+//
+// Owner-approved edit not visible to the string check: the About intro's
+// "Currently at Altimetrik" now reads "Currently at Alo". The word Altimetrik
+// still appears in other entries, so it is asserted directly below.
 import { readFileSync } from 'node:fs'
 import * as content from '../src/content/index.js'
 
@@ -93,6 +97,11 @@ collect(content)
 
 const present = (s) => corpus.some((c) => c.includes(s))
 const problems = []
+
+const aboutCurrent = content.about.intro[2]
+if (aboutCurrent[0] !== 'Currently at ' || aboutCurrent[1]?.strong !== 'Alo') {
+  problems.push('About intro: expected "Currently at Alo" (owner-approved edit)')
+}
 let checked = 0
 
 for (const [file, strings] of Object.entries(baseline.strings)) {
