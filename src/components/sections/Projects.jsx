@@ -9,6 +9,7 @@ import { cascade, inView, maskLine, rise } from '../../motion/variants'
 import { duration, ease } from '../../motion/tokens'
 import SectionHeading from '../shell/SectionHeading'
 import Button from '../ui/Button'
+import MarkedList from '../ui/MarkedList'
 
 const panelId = (project) => `project-${project.id}`
 const PANEL_IDS = projects.items.map(panelId)
@@ -177,19 +178,6 @@ function ProjectPanel({ project, flagship }) {
         </ul>
       </motion.div>
     </motion.article>
-  )
-}
-
-function MarkedList({ items }) {
-  return (
-    <ul className="mt-4 flex flex-col gap-3">
-      {items.map((item) => (
-        <li key={item} className="grid grid-cols-[0.875rem_1fr] gap-3 text-[0.9375rem] leading-relaxed text-fg/80">
-          <span aria-hidden="true" className="mt-[0.8em] h-px w-full bg-rule-strong" />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
   )
 }
 

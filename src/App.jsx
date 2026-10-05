@@ -8,10 +8,10 @@ import Navbar from './components/shell/Navbar'
 import PipelineRail from './components/shell/PipelineRail'
 import Section from './components/shell/Section'
 import Hero from './components/sections/Hero'
+import About from './components/sections/About'
 import Projects from './components/sections/Projects'
+import Experience from './components/sections/Experience'
 // Legacy sections: replaced one by one in later stages.
-import LegacyAbout from './pages/About'
-import LegacyExperience from './pages/Experience'
 import LegacySkills from './pages/Skills'
 import LegacyContact from './pages/Contact'
 
@@ -40,17 +40,9 @@ function Site() {
       <PipelineRail />
       <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
-        <Section id="about" className="section-y">
-          <div className="container">
-            <LegacyAbout />
-          </div>
-        </Section>
+        <About />
         <Projects />
-        <Section id="experience" className="section-y">
-          <div className="container">
-            <LegacyExperience />
-          </div>
-        </Section>
+        <Experience />
         <Section id="skills" className="section-y">
           <div className="container">
             <LegacySkills />

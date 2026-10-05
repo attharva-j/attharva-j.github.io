@@ -6,6 +6,8 @@
 //   - Snowflake Summit talk marked as completed
 //   - Medium handle displayed as @athex25
 //   - 21st.dev footer credit removed
+//   - home-page "Key Achievements" and "Recent Impact" removed: each repeated a
+//     project, stat or recognition entry in different words (approved: show one)
 //
 // Rich paragraphs are arrays of segments: plain strings, { strong: '...' } or { em: '...' }.
 
@@ -79,18 +81,6 @@ export const stats = [
   { label: 'Cost Savings', value: '$900K+' },
   { label: 'Years Experience', value: '5+' },
   { label: 'Enterprise Clients', value: '10+' }
-]
-
-export const achievements = [
-  '60-70% reduction in schema change cycle time',
-  '$900K+ in cumulative cost savings across projects',
-  'Speaker at Snowflake Summit 2025'
-]
-
-export const recentImpact = [
-  { value: '60-70%', text: "Faster change implementation for Lululemon's data workflows" },
-  { value: '45-50 min', text: 'Saved per meeting with AI-powered prep assistant' },
-  { value: '75%', text: 'Reduction in support search time via RAG system' }
 ]
 
 export const about = {

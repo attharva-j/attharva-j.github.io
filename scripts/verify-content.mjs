@@ -46,7 +46,14 @@ const REMOVED = {
   'Altimetrik Corp. — Recognition for exceptional performance and innovation in GenAI engineering':
     'duplicate of the About recognition entry (approved: show one)',
   '"Gaining Customer Insights and Loyalty with Generative AI" — Presenting enterprise AI implementation strategies':
-    'duplicate of the About recognition entry (approved: show one)'
+    'duplicate of the About recognition entry (approved: show one)',
+  // Home-page summaries that restated other entries in different words.
+  '60-70% reduction in schema change cycle time': 'restates the workflow-automation project impact (approved: show one)',
+  '$900K+ in cumulative cost savings across projects': 'restates the $900K+ cost savings stat (approved: show one)',
+  'Speaker at Snowflake Summit 2025': 'restates the Snowflake Summit recognition entry (approved: show one)',
+  "Faster change implementation for Lululemon's data workflows": 'restates the workflow-automation project impact (approved: show one)',
+  'Saved per meeting with AI-powered prep assistant': 'restates the meeting-prep project impact (approved: show one)',
+  'Reduction in support search time via RAG system': 'restates the support-assistant project impact (approved: show one)'
 }
 
 // UI chrome: section headings that only name a section, button labels, and
