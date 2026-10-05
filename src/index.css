@@ -176,6 +176,60 @@
     }
   }
 
+  /* Portrait dissolves into the ground. Two intersecting fades instead of one
+     ellipse, so there is no visible shape: soft sides, a short fade at the top,
+     and a long fall-off below so the shoulders sink into the page. */
+  /* Nested rather than composited: masks on parent and child multiply in every
+     browser, while mask-composite support is uneven. */
+  /* Fades are eased (several stops) rather than linear, so the last faint
+     pixels never form a visible edge. */
+  .portrait-blend {
+    --fade-x: linear-gradient(
+      to right,
+      transparent 0%,
+      rgb(0 0 0 / 0.08) 7%,
+      rgb(0 0 0 / 0.3) 15%,
+      rgb(0 0 0 / 0.65) 23%,
+      #000 32%,
+      #000 68%,
+      rgb(0 0 0 / 0.65) 77%,
+      rgb(0 0 0 / 0.3) 85%,
+      rgb(0 0 0 / 0.08) 93%,
+      transparent 100%
+    );
+    -webkit-mask-image: var(--fade-x);
+    mask-image: var(--fade-x);
+  }
+
+  .portrait-blend__y {
+    --fade-y: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 0.3) 6%,
+      rgb(0 0 0 / 0.75) 12%,
+      #000 18%,
+      #000 46%,
+      rgb(0 0 0 / 0.6) 60%,
+      rgb(0 0 0 / 0.25) 74%,
+      rgb(0 0 0 / 0.06) 88%,
+      transparent 97%
+    );
+    -webkit-mask-image: var(--fade-y);
+    mask-image: var(--fade-y);
+  }
+
+  /* Ground-coloured vignette: darkens the bright sky and wall at the photo's
+     edges to the page colour itself before the masks take them away. */
+  .portrait-vignette {
+    background: radial-gradient(closest-side at 50% 40%, transparent 58%, rgb(var(--ground) / 0.85) 100%);
+  }
+
+  /* Fine horizontal scanlines in the ground colour: the photo reads as rendered
+     on the same instrument surface as the rest of the page. */
+  .portrait-scanlines {
+    background: repeating-linear-gradient(to bottom, rgb(var(--ground) / 0.42) 0 1px, transparent 1px 3px);
+  }
+
   /* Vertical rhythm for every section: spacious, slightly heavier at the bottom. */
   .section-y {
     padding-top: clamp(6rem, 11vw, 11rem);

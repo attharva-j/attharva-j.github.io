@@ -60,7 +60,7 @@ export default function Hero() {
 
         <motion.h1
           id="hero-name"
-          className="mt-5 origin-top-left font-[600] tracking-[-0.06em]"
+          className="relative z-[1] mt-5 origin-top-left font-[600] tracking-[-0.06em]"
           style={{ fontSize: 'var(--name-size)', lineHeight: 0.86, ...linked({ y: nameY, scale: nameScale, opacity: nameOpacity }) }}
         >
           {[identity.firstName, identity.lastName].map((line, i) => (
@@ -72,40 +72,37 @@ export default function Hero() {
           ))}
         </motion.h1>
 
-        {/* Portrait: beside "Joshi" on tablet and up, dropping past the hero's lower
-            edge. On phones it follows the actions so the first screen stays focused. */}
+        {/* Portrait: no frame. A radial mask dissolves the photo into the ground,
+            the tone is pulled down to sit with the text colour, and a fine scanline
+            in the ground colour makes it read as part of the same surface.
+            Beside the name on tablet and up; after the actions on phones. */}
         <motion.figure
-          className="relative order-last mt-14 w-[68%] max-w-[18rem] md:absolute md:right-[var(--gutter)] md:top-[calc(clamp(1.5rem,4vh,3rem)+2.75rem+var(--name-size)*0.86)] md:order-none md:mt-0 md:w-[clamp(12rem,22vw,24rem)] md:max-w-none"
+          className="pointer-events-none relative order-last mt-10 w-full max-w-[22rem] self-end md:absolute md:right-[calc(var(--gutter)-2rem)] md:top-[clamp(0.5rem,2vh,1.5rem)] md:order-none md:mt-0 md:w-[clamp(15rem,31vw,32rem)] md:max-w-none"
           style={linked({ y: portraitY })}
         >
-          <div className="relative aspect-[3/4] overflow-hidden bg-raised">
-            <motion.img
-              src={portrait}
-              alt={`Portrait of ${identity.name}`}
-              width="460"
-              height="460"
-              fetchpriority="high"
-              decoding="async"
-              className="h-full w-full object-cover object-[50%_30%] grayscale contrast-[1.06] brightness-[0.92]"
-              variants={{
-                hidden: { scale: 1.14 },
-                visible: { scale: 1, transition: { duration: 1.6, ease: ease.out, delay: BEAT.portrait } }
-              }}
-            />
-            {/* Shutter lifts to reveal the image: transform only. */}
-            <motion.span
-              aria-hidden="true"
-              className="absolute inset-0 origin-top bg-ground"
-              variants={{
-                hidden: { scaleY: 1 },
-                visible: { scaleY: 0, transition: { duration: 1, ease: ease.inOut, delay: BEAT.portrait } }
-              }}
-            />
+          <div className="portrait-blend relative aspect-[4/5]">
+            <div className="portrait-blend__y absolute inset-0">
+              <motion.img
+                src={portrait}
+                alt={`Portrait of ${identity.name}`}
+                width="460"
+                height="460"
+                fetchpriority="high"
+                decoding="async"
+                className="h-full w-full object-cover object-[50%_28%] grayscale contrast-[1.12] brightness-[0.8]"
+                variants={{
+                  hidden: { opacity: 0, scale: 1.08 },
+                  visible: { opacity: 1, scale: 1, transition: { duration: 1.8, ease: ease.out, delay: BEAT.portrait } }
+                }}
+              />
+              <span aria-hidden="true" className="portrait-vignette absolute inset-0" />
+              <span aria-hidden="true" className="portrait-scanlines absolute inset-0" />
+            </div>
           </div>
         </motion.figure>
 
         <motion.div
-          className="relative mt-8 max-w-[44rem] md:pr-[clamp(14rem,26vw,24rem)] lg:pr-0 xl:max-w-[54rem]"
+          className="relative z-[1] mt-8 max-w-[44rem] md:pr-[clamp(13rem,28vw,24rem)] lg:pr-0 xl:max-w-[54rem]"
           style={linked({ opacity: copyOpacity })}
         >
           <StreamedHeadline
