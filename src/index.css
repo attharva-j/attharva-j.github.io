@@ -176,52 +176,48 @@
     }
   }
 
-  /* Portrait dissolves into the ground. Two intersecting fades instead of one
-     ellipse, so there is no visible shape: soft sides, a short fade at the top,
-     and a long fall-off below so the shoulders sink into the page. */
-  /* Nested rather than composited: masks on parent and child multiply in every
-     browser, while mask-composite support is uneven. */
-  /* Fades are eased (several stops) rather than linear, so the last faint
-     pixels never form a visible edge. */
-  .portrait-blend {
+  /* Portrait band. Horizontal fade is one-sided: long and eased toward the
+     name, none on the right where the band bleeds off the screen. The vertical
+     fade runs the full height so the photo has no top or bottom edge. Masks
+     are nested (parent x, child y) because nested masks multiply everywhere,
+     while mask-composite support is uneven. */
+  .portrait-band {
     --fade-x: linear-gradient(
       to right,
       transparent 0%,
-      rgb(0 0 0 / 0.08) 7%,
-      rgb(0 0 0 / 0.3) 15%,
-      rgb(0 0 0 / 0.65) 23%,
-      #000 32%,
-      #000 68%,
-      rgb(0 0 0 / 0.65) 77%,
-      rgb(0 0 0 / 0.3) 85%,
-      rgb(0 0 0 / 0.08) 93%,
-      transparent 100%
+      rgb(0 0 0 / 0.1) 10%,
+      rgb(0 0 0 / 0.32) 20%,
+      rgb(0 0 0 / 0.62) 30%,
+      rgb(0 0 0 / 0.88) 40%,
+      #000 50%
     );
     -webkit-mask-image: var(--fade-x);
     mask-image: var(--fade-x);
   }
 
-  .portrait-blend__y {
+  .portrait-band__y {
     --fade-y: linear-gradient(
       to bottom,
       transparent 0%,
-      rgb(0 0 0 / 0.3) 6%,
-      rgb(0 0 0 / 0.75) 12%,
-      #000 18%,
-      #000 46%,
-      rgb(0 0 0 / 0.6) 60%,
-      rgb(0 0 0 / 0.25) 74%,
-      rgb(0 0 0 / 0.06) 88%,
-      transparent 97%
+      rgb(0 0 0 / 0.35) 8%,
+      rgb(0 0 0 / 0.8) 16%,
+      #000 24%,
+      #000 56%,
+      rgb(0 0 0 / 0.65) 70%,
+      rgb(0 0 0 / 0.28) 82%,
+      rgb(0 0 0 / 0.07) 92%,
+      transparent 100%
     );
     -webkit-mask-image: var(--fade-y);
     mask-image: var(--fade-y);
   }
 
-  /* Ground-coloured vignette: darkens the bright sky and wall at the photo's
-     edges to the page colour itself before the masks take them away. */
-  .portrait-vignette {
-    background: radial-gradient(closest-side at 50% 40%, transparent 58%, rgb(var(--ground) / 0.85) 100%);
+  /* Phones: the band spans the full width, so only the vertical fade applies. */
+  @media (max-width: 767px) {
+    .portrait-band {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
   }
 
   /* Fine horizontal scanlines in the ground colour: the photo reads as rendered

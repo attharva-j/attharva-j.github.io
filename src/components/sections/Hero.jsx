@@ -49,7 +49,7 @@ export default function Hero() {
   return (
     <section id="top" ref={ref} aria-labelledby="hero-name" className="hero relative z-[1] pt-nav">
       <motion.div
-        className="shell relative flex flex-col pb-[clamp(4rem,9vw,8rem)] pt-[clamp(1.5rem,4vh,3rem)]"
+        className="shell relative flex flex-col pb-[clamp(4rem,9vw,8rem)] pt-[clamp(1.5rem,4vh,3rem)] md:static"
         initial={reduceMotion ? false : 'hidden'}
         animate="visible"
       >
@@ -72,16 +72,17 @@ export default function Hero() {
           ))}
         </motion.h1>
 
-        {/* Portrait: no frame. A radial mask dissolves the photo into the ground,
-            the tone is pulled down to sit with the text colour, and a fine scanline
-            in the ground colour makes it read as part of the same surface.
-            Beside the name on tablet and up; after the actions on phones. */}
+        {/* Portrait as a full-height band: it bleeds off the right edge of the
+            screen, dissolves slowly toward the name and fades out at the top and
+            bottom, so it has no closed outline. Tone pulled down and a fine
+            ground-colour scanline tie it to the interface. On phones it is a
+            full-width band after the actions. */}
         <motion.figure
-          className="pointer-events-none relative order-last mt-10 w-full max-w-[22rem] self-end md:absolute md:right-[calc(var(--gutter)-2rem)] md:top-[clamp(0.5rem,2vh,1.5rem)] md:order-none md:mt-0 md:w-[clamp(15rem,31vw,32rem)] md:max-w-none"
+          className="pointer-events-none relative order-last -mx-[var(--gutter)] mt-6 aspect-[4/5] md:absolute md:inset-y-0 md:right-0 md:order-none md:mx-0 md:mt-0 md:aspect-auto md:w-[clamp(19rem,40vw,46rem)]"
           style={linked({ y: portraitY })}
         >
-          <div className="portrait-blend relative aspect-[4/5]">
-            <div className="portrait-blend__y absolute inset-0">
+          <div className="portrait-band relative h-full">
+            <div className="portrait-band__y absolute inset-0">
               <motion.img
                 src={portrait}
                 alt={`Portrait of ${identity.name}`}
@@ -89,13 +90,12 @@ export default function Hero() {
                 height="460"
                 fetchpriority="high"
                 decoding="async"
-                className="h-full w-full object-cover object-[50%_28%] grayscale contrast-[1.12] brightness-[0.8]"
+                className="h-full w-full object-cover object-[50%_24%] grayscale contrast-[1.14] brightness-[0.74]"
                 variants={{
-                  hidden: { opacity: 0, scale: 1.08 },
+                  hidden: { opacity: 0, scale: 1.06 },
                   visible: { opacity: 1, scale: 1, transition: { duration: 1.8, ease: ease.out, delay: BEAT.portrait } }
                 }}
               />
-              <span aria-hidden="true" className="portrait-vignette absolute inset-0" />
               <span aria-hidden="true" className="portrait-scanlines absolute inset-0" />
             </div>
           </div>
