@@ -86,7 +86,7 @@ function ProjectIndex({ activePanel }) {
               >
                 <span
                   className={`block text-small leading-snug transition-[opacity,transform] duration-base ease-out group-hover:translate-x-1 group-hover:opacity-100 group-focus-visible:translate-x-1 group-focus-visible:opacity-100 ${
-                    active ? 'opacity-100' : 'opacity-45'
+                    active ? 'opacity-100' : 'opacity-60'
                   }`}
                 >
                   {project.title}

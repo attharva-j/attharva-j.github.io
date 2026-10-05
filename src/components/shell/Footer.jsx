@@ -21,7 +21,12 @@ export default function Footer() {
       <div className="shell grid gap-10 py-12 md:grid-cols-12 md:items-end md:gap-x-[clamp(2rem,4vw,4rem)] md:py-14">
         <div className="md:col-span-4">
           <p className="flex items-center gap-3">
-            <span aria-hidden="true" className="h-3.5 w-[7px] bg-signal" />
+            <span
+              aria-hidden="true"
+              className="grid h-9 w-9 place-items-center font-mono text-[0.8125rem] font-[500] shadow-[inset_0_0_0_1px_rgb(var(--rule-strong))]"
+            >
+              {identity.monogram}
+            </span>
             <span className="text-[0.9375rem] font-[560] tracking-[-0.02em]">{identity.name}</span>
           </p>
           <p className="meta mt-2">{identity.titles.nav}</p>

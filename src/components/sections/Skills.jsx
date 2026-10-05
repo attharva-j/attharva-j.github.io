@@ -225,7 +225,7 @@ function Graph({ linked, hover, skillState, projectState, onSkillClick, pinned, 
                 onClick={() => onSkillClick(skill)}
                 {...hover('skill', skill)}
                 className={`relative px-3 py-1.5 text-left font-mono text-[0.8125rem] tabular shadow-[inset_0_0_0_1px_rgb(var(--rule))] transition-opacity duration-base ease-out lg:px-0 lg:py-[0.3rem] lg:shadow-none ${
-                  state === 'off' ? 'opacity-30' : state === 'on' ? 'opacity-100' : 'opacity-75'
+                  state === 'off' ? 'opacity-50' : state === 'on' ? 'opacity-100' : 'opacity-75'
                 }`}
               >
                 {state === 'on' && (
@@ -253,14 +253,14 @@ function Graph({ linked, hover, skillState, projectState, onSkillClick, pinned, 
                 {...hover('project', id)}
                 aria-label={`${label.name}, ${label.fullName}, ${label.impact}. Go to project`}
                 className={`group grid w-full grid-cols-[1fr_auto] items-baseline gap-x-4 border-t border-rule py-3 text-left transition-[opacity,transform] duration-base ease-out hover:translate-x-1 focus-visible:translate-x-1 ${
-                  state === 'off' ? 'opacity-30' : 'opacity-100'
+                  state === 'off' ? 'opacity-70' : 'opacity-100'
                 }`}
               >
                 <span>
                   <span className="block text-body font-[540]">{label.name}</span>
-                  <span className="block text-small text-fg/60">{label.fullName}</span>
+                  <span className="block text-small text-fg/75">{label.fullName}</span>
                 </span>
-                <span className={`font-mono text-small tabular ${state === 'on' ? 'text-signal' : 'text-fg/70'}`}>
+                <span className={`font-mono text-small tabular ${state === 'on' ? 'text-signal' : 'text-fg/80'}`}>
                   {label.impact}
                 </span>
               </button>

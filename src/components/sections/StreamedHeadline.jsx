@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 
 // The hero's typographic moment: the headline arrives the way a model streams a
@@ -25,8 +25,13 @@ export default function StreamedHeadline({ words, startDelay = 900, className = 
   const reduceMotion = useReducedMotion()
   const text = words.join(' ')
   // If the content ever changes, fall back to whole-word tokens.
-  const tokens =
-    joinTokens(SUBWORD_TOKENS) === text ? SUBWORD_TOKENS : words.map((word, i) => ({ text: word, space: i > 0 }))
+  const tokens = useMemo(
+    () =>
+      joinTokens(SUBWORD_TOKENS) === text
+        ? SUBWORD_TOKENS
+        : text.split(' ').map((word, i) => ({ text: word, space: i > 0 })),
+    [text]
+  )
   const [count, setCount] = useState(reduceMotion ? tokens.length : 0)
   const [phase, setPhase] = useState(reduceMotion ? 'rest' : 'waiting')
 
@@ -49,7 +54,7 @@ export default function StreamedHeadline({ words, startDelay = 900, className = 
     })
     timers.push(setTimeout(() => setPhase('rest'), at + 1400))
     return () => timers.forEach(clearTimeout)
-  }, [reduceMotion, startDelay, tokens.length])
+  }, [reduceMotion, startDelay, tokens])
 
   const caretAt = Math.max(count - 1, 0)
   const caretClass = { waiting: 'animate-caret-wait', streaming: '', done: 'animate-caret-blink', rest: '' }[phase]

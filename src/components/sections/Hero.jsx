@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { ArrowDownRight } from '@phosphor-icons/react'
 import { hero, identity } from '../../content'
@@ -33,6 +33,9 @@ const fadeUp = (delay) => ({
 export default function Hero() {
   const ref = useRef(null)
   const reduceMotion = useReducedMotion()
+  // The portrait is above the fold from tablet up; on phones it follows the
+  // actions, so it should not compete with the first screen for bandwidth.
+  const [aboveFold] = useState(() => typeof window === 'undefined' || window.matchMedia('(min-width: 768px)').matches)
 
   // Scroll-linked exit: the name lifts and recedes as the nav brand docks in,
   // the portrait drifts slower than the page for a little depth.
@@ -89,12 +92,23 @@ export default function Hero() {
                 alt={`Portrait of ${identity.name}`}
                 width="460"
                 height="460"
-                fetchpriority="high"
+                fetchpriority={aboveFold ? 'high' : 'auto'}
+                loading={aboveFold ? 'eager' : 'lazy'}
                 decoding="async"
                 className="h-full w-full object-cover object-[50%_24%] grayscale contrast-[1.14] brightness-[0.74]"
                 variants={{
-                  hidden: { opacity: 0, scale: 1.06 },
-                  visible: { opacity: 1, scale: 1, transition: { duration: 1.8, ease: ease.out, delay: BEAT.portrait } }
+                  hidden: { scale: 1.06 },
+                  visible: { scale: 1, transition: { duration: 1.8, ease: ease.out, delay: BEAT.portrait } }
+                }}
+              />
+              {/* The photo itself is painted at once (so it counts for LCP); this
+                  ground-coloured veil fades away to reveal it from the dark. */}
+              <motion.span
+                aria-hidden="true"
+                className="absolute inset-0 bg-ground"
+                variants={{
+                  hidden: { opacity: 1 },
+                  visible: { opacity: 0, transition: { duration: 1.8, ease: ease.out, delay: BEAT.portrait } }
                 }}
               />
               <span aria-hidden="true" className="portrait-scanlines absolute inset-0" />
