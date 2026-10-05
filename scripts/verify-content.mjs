@@ -57,7 +57,9 @@ const REMOVED = {
   'Speaker at Snowflake Summit 2025': 'restates the Snowflake Summit recognition entry (approved: show one)',
   "Faster change implementation for Lululemon's data workflows": 'restates the workflow-automation project impact (approved: show one)',
   'Saved per meeting with AI-powered prep assistant': 'restates the meeting-prep project impact (approved: show one)',
-  'Reduction in support search time via RAG system': 'restates the support-assistant project impact (approved: show one)'
+  'Reduction in support search time via RAG system': 'restates the support-assistant project impact (approved: show one)',
+  'I typically respond to inquiries within 24-48 hours. For urgent matters, please mention it in your message or reach out via LinkedIn for faster response.':
+    'second response-time paragraph (owner: keep one)'
 }
 
 // UI chrome: section headings that only name a section, button labels, and

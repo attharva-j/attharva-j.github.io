@@ -2,7 +2,6 @@
 // CSS, Tailwind utilities and Framer Motion all read the same source.
 module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -12,17 +11,11 @@ module.exports = {
         'rule-strong': 'rgb(var(--rule-strong) / <alpha-value>)',
         fg: 'rgb(var(--fg) / <alpha-value>)',
         dim: 'rgb(var(--dim) / <alpha-value>)',
-        signal: 'rgb(var(--signal) / <alpha-value>)',
-        // Legacy keys, used only by pre-redesign sections still awaiting their stage.
-        primary: '#0f1724',
-        accent: '#22c1c3',
-        accent2: '#60a5fa',
-        muted: '#94a3b8'
+        signal: 'rgb(var(--signal) / <alpha-value>)'
       },
       fontFamily: {
         sans: ['"Geist Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['"Geist Mono Variable"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-        inter: ['"Geist Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        mono: ['"Geist Mono Variable"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
       },
       fontSize: {
         micro: ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.01em' }],

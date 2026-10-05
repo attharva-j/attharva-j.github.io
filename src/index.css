@@ -391,6 +391,40 @@
     }
   }
 
+  /* Contact address: resting hairline, overdrawn in signal on hover. */
+  .email-link::before,
+  .email-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.08em;
+    height: 2px;
+  }
+
+  .email-link::before {
+    background: rgb(var(--rule-strong));
+  }
+
+  .email-link::after {
+    background: rgb(var(--signal));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--dur-slow) var(--ease-in-out);
+  }
+
+  .email-link:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  @media (hover: hover) {
+    .email-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
   /* Inline text links: a resting hairline, overdrawn in signal on hover. */
   .textlink {
     position: relative;

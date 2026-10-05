@@ -60,6 +60,7 @@ export default function Hero() {
 
         <motion.h1
           id="hero-name"
+          tabIndex={-1}
           className="relative z-[1] mt-5 origin-top-left font-[600] tracking-[-0.06em]"
           style={{ fontSize: 'var(--name-size)', lineHeight: 0.86, ...linked({ y: nameY, scale: nameScale, opacity: nameOpacity }) }}
         >

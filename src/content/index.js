@@ -6,6 +6,7 @@
 //   - Snowflake Summit talk marked as completed
 //   - Medium handle displayed as @athex25
 //   - 21st.dev footer credit removed
+//   - Contact keeps one of the two response-time paragraphs (owner: keep one)
 //   - About intro names the current company as Alo (owner request; About only)
 //   - home-page "Key Achievements" and "Recent Impact" removed: each repeated a
 //     project, stat or recognition entry in different words (approved: show one)
@@ -510,10 +511,8 @@ export const contact = {
   heading: "Let's Connect",
   intro: "Open to consulting, collaborations, and speaking opportunities. Let's discuss how AI can transform your business.",
   responseTime: '24-48 hours',
-  responseNotes: [
+  responseNote:
     'I respond to all professional inquiries within 24-48 hours. For consulting, speaking, or collaboration opportunities, please reach out via email or LinkedIn.',
-    'I typically respond to inquiries within 24-48 hours. For urgent matters, please mention it in your message or reach out via LinkedIn for faster response.'
-  ],
   collaborations: [
     { title: 'Consulting', text: 'Enterprise AI strategy, RAG architecture design, and ML system optimization' },
     { title: 'Speaking', text: 'Conference talks, workshops, and technical presentations on GenAI and MLOps' },

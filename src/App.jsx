@@ -6,14 +6,13 @@ import { useActiveSection } from './hooks/useActiveSection'
 import { useRouteScroll } from './hooks/useRouteScroll'
 import Navbar from './components/shell/Navbar'
 import PipelineRail from './components/shell/PipelineRail'
-import Section from './components/shell/Section'
+import Footer from './components/shell/Footer'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Projects from './components/sections/Projects'
 import Experience from './components/sections/Experience'
 import Skills from './components/sections/Skills'
-// Legacy sections: replaced one by one in later stages.
-import LegacyContact from './pages/Contact'
+import Contact from './components/sections/Contact'
 
 const SECTION_IDS = SECTIONS.map((section) => section.id)
 
@@ -44,12 +43,9 @@ function Site() {
         <Projects />
         <Experience />
         <Skills />
-        <Section id="contact" className="section-y">
-          <div className="container">
-            <LegacyContact />
-          </div>
-        </Section>
+        <Contact />
       </main>
+      <Footer />
     </>
   )
 }
