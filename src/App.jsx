@@ -11,8 +11,8 @@ import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Projects from './components/sections/Projects'
 import Experience from './components/sections/Experience'
+import Skills from './components/sections/Skills'
 // Legacy sections: replaced one by one in later stages.
-import LegacySkills from './pages/Skills'
 import LegacyContact from './pages/Contact'
 
 const SECTION_IDS = SECTIONS.map((section) => section.id)
@@ -43,11 +43,7 @@ function Site() {
         <About />
         <Projects />
         <Experience />
-        <Section id="skills" className="section-y">
-          <div className="container">
-            <LegacySkills />
-          </div>
-        </Section>
+        <Skills />
         <Section id="contact" className="section-y">
           <div className="container">
             <LegacyContact />
