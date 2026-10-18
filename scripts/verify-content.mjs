@@ -6,9 +6,9 @@
 //   4. UI chrome the redesign may rename or drop (CHROME)
 // Anything else fails the build.
 //
-// Owner-approved edit not visible to the string check: the About intro's
-// "Currently at Altimetrik" now reads "Currently at Alo". The word Altimetrik
-// still appears in other entries, so it is asserted directly below.
+// Owner-approved edit not visible to the string check: ALO is the current
+// role in the About intro and journey. "Altimetrik" still appears elsewhere,
+// so the ALO mention is asserted directly below.
 import { readFileSync } from 'node:fs'
 import * as content from '../src/content/index.js'
 
@@ -38,6 +38,15 @@ const EDITS = {
   'Upcoming Conference Presentation': 'Completed Conference Presentation',
   // Altimetrik is now a past role, ALO is current (owner request, Oct 2026)
   'Nov 2024 - Present': 'Nov 2024 - Aug 2026',
+  'Currently at': "Currently, I'm a Senior AI Engineer - Product & MarTech at ",
+  ", I'm leading GenAI initiatives for Fortune 500 clients, architecting systems that have delivered":
+    ', I led GenAI initiatives for Fortune 500 clients, architecting systems that delivered',
+  "Today, I'm pushing the boundaries of GenAI at": ', I pushed the boundaries of GenAI,',
+  ', architecting enterprise RAG systems and agentic workflows for clients like Lululemon. My focus is on making AI practical, reliable, and transformative for business operations.':
+    [
+      'architecting enterprise RAG systems and agentic workflows for clients like Lululemon.',
+      'My focus is on making AI practical, reliable, and transformative for business operations.'
+    ],
   // Medium handle (approved: "change to @athex25")
   '@atharvajoshi': '@athex25',
   // Same destinations, one canonical URL each
@@ -102,9 +111,9 @@ collect(content)
 const present = (s) => corpus.some((c) => c.includes(s))
 const problems = []
 
-const aboutCurrent = content.about.intro[2]
-if (aboutCurrent[0] !== 'Currently at ' || aboutCurrent[1]?.strong !== 'Alo') {
-  problems.push('About intro: expected "Currently at Alo" (owner-approved edit)')
+const mentionsAlo = (paragraph) => paragraph.some((segment) => segment?.strong === 'ALO')
+if (!mentionsAlo(content.about.intro[2]) || !mentionsAlo(content.about.journey[2])) {
+  problems.push('About intro and journey must name ALO as the current role (owner-approved edit)')
 }
 let checked = 0
 
@@ -113,7 +122,9 @@ for (const [file, strings] of Object.entries(baseline.strings)) {
     checked++
     if (CHROME.has(s) || REMOVED[s]) continue
     if (EDITS[s]) {
-      if (!present(EDITS[s])) problems.push(`${file}: approved edit missing -> "${EDITS[s]}"`)
+      for (const replacement of [].concat(EDITS[s])) {
+        if (!present(replacement)) problems.push(`${file}: approved edit missing -> "${replacement}"`)
+      }
       continue
     }
     if (!present(s)) problems.push(`${file}: missing -> "${s}"`)

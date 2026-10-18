@@ -7,7 +7,7 @@
 //   - Medium handle displayed as @athex25
 //   - 21st.dev footer credit removed
 //   - Contact keeps one of the two response-time paragraphs (owner: keep one)
-//   - About intro names the current company as Alo (owner request; About only)
+//   - ALO is the current role (Oct 2026); Altimetrik statements moved to past tense
 //   - home-page "Key Achievements" and "Recent Impact" removed: each repeated a
 //     project, stat or recognition entry in different words (approved: show one)
 //
@@ -99,10 +99,12 @@ export const about = {
       ". I partner closely with analysts, engineers, and business stakeholders to convert domain knowledge into reliable AI products that drive measurable outcomes. Whether it's a RAG system processing 100GB of support data or an agentic workflow that saves teams 45+ minutes per meeting, my solutions are built to scale."
     ],
     [
-      'Currently at ',
-      // Owner-approved: current company in the About section is Alo.
-      { strong: 'Alo' },
-      ", I'm leading GenAI initiatives for Fortune 500 clients, architecting systems that have delivered ",
+      // Owner-approved (Oct 2026): ALO is the current role; Altimetrik in past tense.
+      "Currently, I'm a Senior AI Engineer - Product & MarTech at ",
+      { strong: 'ALO' },
+      '. At ',
+      { strong: 'Altimetrik' },
+      ', I led GenAI initiatives for Fortune 500 clients, architecting systems that delivered ',
       { strong: '$900K+ in cost savings' },
       ' and ',
       { strong: '60-70% efficiency improvements' },
@@ -169,9 +171,12 @@ export const about = {
       ' at the Carlson Analytics Lab, leading cross-functional teams on loyalty program optimization projects that increased engagement by 23% for a major Minneapolis mall.'
     ],
     [
-      "Today, I'm pushing the boundaries of GenAI at ",
+      // Owner-approved (Oct 2026): Altimetrik in past tense, ALO as the present.
+      'At ',
       { strong: 'Altimetrik Corp' },
-      ', architecting enterprise RAG systems and agentic workflows for clients like Lululemon. My focus is on making AI practical, reliable, and transformative for business operations.'
+      ', I pushed the boundaries of GenAI, architecting enterprise RAG systems and agentic workflows for clients like Lululemon. Today, I am a Senior AI Engineer - Product & MarTech at ',
+      { strong: 'ALO' },
+      '. My focus is on making AI practical, reliable, and transformative for business operations.'
     ]
   ],
   beyondWork: [
