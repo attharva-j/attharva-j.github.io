@@ -16,9 +16,9 @@
 // Rich paragraphs are arrays of segments: plain strings, { strong: '...' } or { em: '...' }.
 
 export const site = {
-  title: 'Atharva Joshi - GenAI Engineer',
+  title: 'Atharva Joshi - AI Engineer',
   description:
-    'Atharva Joshi, GenAI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines.'
+    'Atharva Joshi, AI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines.'
 }
 
 export const identity = {
@@ -27,14 +27,15 @@ export const identity = {
   lastName: 'Joshi',
   monogram: 'AJ',
   signature: 'Atharva J',
+  // Owner-approved (Oct 2026): title is AI Engineer; based in Los Angeles, CA.
   titles: {
-    nav: 'GenAI Engineer & Data Scientist',
-    profile: 'GenAI Engineer & ML Architect',
-    resume: 'Atharva Joshi - GenAI Engineer'
+    nav: 'AI Engineer',
+    profile: 'AI Engineer',
+    resume: 'Atharva Joshi - AI Engineer'
   },
   location: {
-    short: 'Salt Lake City, UT',
-    long: 'Salt Lake City, Utah',
+    short: 'Los Angeles, CA',
+    long: 'Los Angeles, California',
     note: 'Open to remote opportunities & travel'
   },
   availability: 'Available for Consulting'
@@ -69,7 +70,11 @@ export const links = {
 
 export const resume = {
   href: '/resume.pdf',
-  filename: 'Atharva_Joshi_Resume.pdf'
+  filename: 'Atharva_Joshi_Resume.pdf',
+  // Temporarily off (owner request, Oct 2026): Resume buttons show this note
+  // instead of opening the PDF. Set to true to bring the preview back.
+  available: false,
+  unavailableNote: 'Reach out via email for requesting my resume'
 }
 
 export const hero = {
@@ -198,12 +203,13 @@ export const about = {
   ]
 }
 
-// Added by the owner (Oct 2026). White-paper titles are the published titles
-// on altimetrik.com; the cookbook has no public link yet.
+// Added by the owner (Oct 2026). Titles are as published on
+// developers.openai.com and altimetrik.com.
 export const publications = [
   {
-    title: 'Cookbook on OpenAI Developers',
-    source: 'Feature',
+    title: 'SchemaFlow: Agentic Database Change Impact Analysis, SQL Generation, and Eval Guardrails',
+    source: 'Cookbook, OpenAI Developers',
+    href: 'https://developers.openai.com/cookbook/examples/partners/schemaflow_design_guide/schemaflow_cookbook',
     text: 'Published on OpenAI Developers in collaboration with the OpenAI product team for creating a cookbook with 10K+ views.'
   },
   {

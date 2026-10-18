@@ -17,9 +17,10 @@ const baseline = JSON.parse(readFileSync(new URL('./content-baseline.json', impo
 // Owner-approved edits: original -> replacement.
 const EDITS = {
   // Em-dash removal (approved: "remove em-dashes")
-  'Atharva Joshi — GenAI Engineer': 'Atharva Joshi - GenAI Engineer',
+  // Em-dash removal, then the Oct 2026 title change to "AI Engineer"
+  'Atharva Joshi — GenAI Engineer': 'Atharva Joshi - AI Engineer',
   'Atharva Joshi — GenAI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines.':
-    'Atharva Joshi, GenAI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines.',
+    'Atharva Joshi, AI engineer building RAG systems, AI agents, MCPs, and enterprise-grade AI pipelines.',
   'Every AI system I build is designed for production from day one — auditable, observable, and maintainable.':
     'Every AI system I build is designed for production from day one: auditable, observable, and maintainable.',
   'Focused on driving tangible business outcomes — from cost savings to revenue growth and operational efficiency.':
@@ -38,6 +39,12 @@ const EDITS = {
   'Upcoming Conference Presentation': 'Completed Conference Presentation',
   // Altimetrik is now a past role, ALO is current (owner request, Oct 2026)
   'Nov 2024 - Present': 'Nov 2024 - Aug 2026',
+  // Title is "AI Engineer" and location is Los Angeles (owner request, Oct 2026)
+  'GenAI Engineer & Data Scientist': 'AI Engineer',
+  'GenAI Engineer & ML Architect': 'AI Engineer',
+  'Atharva Joshi - GenAI Engineer': 'Atharva Joshi - AI Engineer',
+  'Salt Lake City, UT': 'Los Angeles, CA',
+  'Salt Lake City, Utah': 'Los Angeles, California',
   'Currently at': "Currently, I'm a Senior AI Engineer - Product & MarTech at ",
   ", I'm leading GenAI initiatives for Fortune 500 clients, architecting systems that have delivered":
     ', I led GenAI initiatives for Fortune 500 clients, architecting systems that delivered',
