@@ -123,7 +123,7 @@ function Roles() {
 
           <motion.div variants={rise} className="flex flex-wrap gap-x-6 gap-y-1 lg:col-span-3 lg:flex-col">
             <p className="font-mono text-small text-fg tabular">{role.period}</p>
-            <p className="meta">{role.type}</p>
+            {role.type && <p className="meta">{role.type}</p>}
             <p className="meta">{role.location}</p>
           </motion.div>
 
@@ -133,16 +133,20 @@ function Roles() {
               <span className="mt-1 block text-lead font-[420] tracking-normal text-fg/60">{role.company}</span>
             </motion.h3>
 
-            <dl className="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
-              {role.impact.map((item) => (
-                <ImpactReadout key={item.label + item.value} item={item} />
-              ))}
-            </dl>
+            {role.impact.length > 0 && (
+              <dl className="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
+                {role.impact.map((item) => (
+                  <ImpactReadout key={item.label + item.value} item={item} />
+                ))}
+              </dl>
+            )}
 
-            <motion.div variants={rise} className="mt-12">
-              <Label as="h4">Key contributions</Label>
-              <MarkedList items={role.highlights} />
-            </motion.div>
+            {role.highlights.length > 0 && (
+              <motion.div variants={rise} className="mt-12">
+                <Label as="h4">Key contributions</Label>
+                <MarkedList items={role.highlights} />
+              </motion.div>
+            )}
           </div>
         </motion.li>
       ))}

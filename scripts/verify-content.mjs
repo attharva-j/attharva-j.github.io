@@ -36,6 +36,8 @@ const EDITS = {
     '5+ years building enterprise-grade AI/ML systems with proven scalability and measurable business impact.',
   // Snowflake talk is done (approved: mark as completed)
   'Upcoming Conference Presentation': 'Completed Conference Presentation',
+  // Altimetrik is now a past role, ALO is current (owner request, Oct 2026)
+  'Nov 2024 - Present': 'Nov 2024 - Aug 2026',
   // Medium handle (approved: "change to @athex25")
   '@atharvajoshi': '@athex25',
   // Same destinations, one canonical URL each

@@ -184,10 +184,21 @@ export const experience = {
   summary: '5+ years building enterprise-grade AI/ML systems with proven scalability and measurable business impact.',
   roles: [
     {
+      // Current role, from the LinkedIn export (Oct 2026). No bullets or metrics
+      // are published for it yet, so the entry shows title, company and dates only.
+      company: 'ALO',
+      location: 'Los Angeles, CA',
+      role: 'Senior AI Engineer - Product & MarTech',
+      period: 'Aug 2026 - Present',
+      highlights: [],
+      impact: []
+    },
+    {
       company: 'Altimetrik Corp.',
       location: 'San Francisco, CA',
       role: 'Gen AI Engineer',
-      period: 'Nov 2024 - Present',
+      // Owner-approved: Altimetrik is a past role; tenure ended Aug 2026 (LinkedIn).
+      period: 'Nov 2024 - Aug 2026',
       type: 'Full-time',
       highlights: [
         'Architected org-wide GenAI-powered change request automation framework using LangGraph to orchestrate LLM agents across parsing, impact analysis, SQL generation, and validation',
