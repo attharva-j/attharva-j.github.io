@@ -71,9 +71,11 @@ export const links = {
 export const resume = {
   href: '/resume.pdf',
   filename: 'Atharva_Joshi_Resume.pdf',
-  // Temporarily off (owner request, Oct 2026): Resume buttons show this note
-  // instead of opening the PDF. Set to true to bring the preview back.
-  available: false,
+  // Switches on by itself when public/resume.pdf exists at build time (see
+  // vite.config.js). Until then the Resume buttons show unavailableNote.
+  // Outside Vite (e.g. the content check in Node) it reads as unavailable.
+  // eslint-disable-next-line no-undef
+  available: typeof __RESUME_AVAILABLE__ !== 'undefined' && __RESUME_AVAILABLE__,
   unavailableNote: 'Reach out via email for requesting my resume'
 }
 

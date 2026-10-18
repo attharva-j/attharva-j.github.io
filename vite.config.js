@@ -1,5 +1,13 @@
+import { existsSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+
+// Resume plug-in: the Resume buttons open the PDF only when public/resume.pdf
+// exists at build time. No file, no link: the buttons show the "reach out"
+// note instead. Dropping a new resume.pdf into public/ and rebuilding (or
+// restarting the dev server) switches it on, with no code change.
+const RESUME_PRESENT = existsSync(fileURLToPath(new URL('./public/resume.pdf', import.meta.url)))
 
 // The hero's critical assets are only discovered after the app renders. This
 // injects preload hints into the built HTML so they start on the first round
@@ -34,5 +42,8 @@ function preloadCriticalAssets() {
 
 export default defineConfig({
   plugins: [react(), preloadCriticalAssets()],
-  base: '/'
+  base: '/',
+  define: {
+    __RESUME_AVAILABLE__: JSON.stringify(RESUME_PRESENT)
+  }
 })
