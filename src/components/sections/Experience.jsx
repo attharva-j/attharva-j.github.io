@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { about, experience, stats } from '../../content'
+import { ArrowUpRight } from '@phosphor-icons/react'
+import { about, experience, publications, stats } from '../../content'
 import { splitFigure } from '../../lib/figures'
 import { cascade, drawX, inView, maskLine, rise } from '../../motion/variants'
 import SectionHeading from '../shell/SectionHeading'
@@ -175,6 +176,32 @@ function ImpactReadout({ item }) {
   )
 }
 
+// Long titles wrap, so the hairline is a text underline (on every line) and the
+// arrow is kept on the same line as the final word.
+function ExternalTitle({ href, title }) {
+  const words = title.split(' ')
+  const last = words.pop()
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group underline decoration-rule-strong decoration-1 underline-offset-[0.22em] hover:decoration-signal focus-visible:decoration-signal"
+    >
+      {words.length > 0 && `${words.join(' ')} `}
+      <span className="whitespace-nowrap">
+        {last}
+        <ArrowUpRight
+          size={16}
+          aria-hidden="true"
+          className="ml-1.5 inline align-baseline text-fg/50 transition-transform duration-base ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-focus-visible:-translate-y-0.5 group-focus-visible:translate-x-0.5"
+        />
+      </span>
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  )
+}
+
 function Credentials() {
   return (
     <div className={`${BLOCK_GAP} grid gap-16 lg:grid-cols-12 lg:gap-x-[clamp(2rem,4vw,4rem)]`}>
@@ -194,6 +221,25 @@ function Credentials() {
             <h4 className="mt-3 text-[1.375rem] font-[540] leading-snug tracking-[-0.02em]">{entry.degree}</h4>
             <p className="meta mt-1.5">{entry.school}</p>
             <p className="mt-4 max-w-[52ch] text-[0.9375rem] leading-relaxed text-fg/65">{entry.text}</p>
+          </motion.article>
+        ))}
+
+        <motion.div variants={rise} className="mt-16">
+          <Label>Publications &amp; features</Label>
+        </motion.div>
+        {publications.map((entry) => (
+          <motion.article key={entry.title} variants={rise} className="mt-6 border-t border-rule pt-6">
+            <h4 className="text-[1.375rem] font-[540] leading-snug tracking-[-0.02em]">
+              {entry.href ? (
+                <ExternalTitle href={entry.href} title={entry.title} />
+              ) : (
+                entry.title
+              )}
+            </h4>
+            <p className="meta mt-1.5">{entry.source}</p>
+            {entry.text && (
+              <p className="mt-4 max-w-[52ch] text-[0.9375rem] leading-relaxed text-fg/65">{entry.text}</p>
+            )}
           </motion.article>
         ))}
       </motion.div>

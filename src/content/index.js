@@ -8,6 +8,8 @@
 //   - 21st.dev footer credit removed
 //   - Contact keeps one of the two response-time paragraphs (owner: keep one)
 //   - ALO is the current role (Oct 2026); Altimetrik statements moved to past tense
+//   - Oct 2026 additions from the owner: two OpenAI HQ recognition entries and
+//     the publications list
 //   - home-page "Key Achievements" and "Recent Impact" removed: each repeated a
 //     project, stat or recognition entry in different words (approved: show one)
 //
@@ -155,6 +157,17 @@ export const about = {
         { em: '"Gaining Customer Insights and Loyalty with Generative AI"' },
         ', sharing enterprise AI implementation strategies and real-world case studies.'
       ]
+    },
+    // Added by the owner (Oct 2026).
+    {
+      title: 'Global Codex Hackathon',
+      source: 'OpenAI HQ, San Francisco',
+      text: ['Represented Altimetrik at the Global Codex Hackathon at OpenAI HQ in San Francisco.']
+    },
+    {
+      title: 'World Partner Bootcamp',
+      source: 'OpenAI HQ, San Francisco',
+      text: ['Represented Altimetrik at the World Partner Bootcamp at OpenAI HQ in San Francisco.']
     }
   ],
   journey: [
@@ -184,6 +197,26 @@ export const about = {
     "I'm always open to interesting conversations about AI, collaboration opportunities, and speaking engagements. Feel free to reach out!"
   ]
 }
+
+// Added by the owner (Oct 2026). White-paper titles are the published titles
+// on altimetrik.com; the cookbook has no public link yet.
+export const publications = [
+  {
+    title: 'Cookbook on OpenAI Developers',
+    source: 'Feature',
+    text: 'Published on OpenAI Developers in collaboration with the OpenAI product team for creating a cookbook with 10K+ views.'
+  },
+  {
+    title: '85% Faster Change Cycles: Transforming Data Platforms with AI-Driven Change Management',
+    source: 'White paper, Altimetrik',
+    href: 'https://www.altimetrik.com/white-papers/schemaflow-ai-data-platform-change-management/'
+  },
+  {
+    title: 'Evals in Production',
+    source: 'White paper, Altimetrik',
+    href: 'https://www.altimetrik.com/white-papers/evals-in-production/'
+  }
+]
 
 export const experience = {
   summary: '5+ years building enterprise-grade AI/ML systems with proven scalability and measurable business impact.',
