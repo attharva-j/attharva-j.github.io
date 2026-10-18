@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, DownloadSimple, X } from '@phosphor-icons/react'
@@ -10,7 +10,80 @@ import { ease, duration } from '../motion/tokens'
 // Legacy variant names map onto the two button styles.
 const VARIANTS = { primary: 'primary', navbar: 'secondary', secondary: 'secondary', ghost: 'secondary' }
 
-export default function ResumeButton({ variant = 'secondary', className = '', label = 'Resume' }) {
+// side: where the note opens relative to the button; align: which edge it hugs.
+export default function ResumeButton({
+  variant = 'secondary',
+  className = '',
+  label = 'Resume',
+  side = 'bottom',
+  align = 'start'
+}) {
+  if (!resume.available) {
+    return <ResumeUnavailable variant={variant} className={className} label={label} side={side} align={align} />
+  }
+  return <ResumePreviewButton variant={variant} className={className} label={label} />
+}
+
+// While the resume is switched off, the button stays in place (so the layout
+// does not change) and explains how to get it: a note on hover, focus or tap.
+function ResumeUnavailable({ variant, className, label, side, align }) {
+  const [shown, setShown] = useState(false)
+  const noteId = useId()
+  const hideTimer = useRef(null)
+
+  useEffect(() => {
+    if (!shown) return undefined
+    const onKeyDown = (event) => event.key === 'Escape' && setShown(false)
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [shown])
+
+  useEffect(() => () => window.clearTimeout(hideTimer.current), [])
+
+  // Taps have no hover, so a tap shows the note for a few seconds.
+  const showBriefly = () => {
+    setShown(true)
+    window.clearTimeout(hideTimer.current)
+    hideTimer.current = window.setTimeout(() => setShown(false), 3200)
+  }
+
+  const position = [
+    side === 'top' ? 'bottom-full mb-2' : 'top-full mt-2',
+    align === 'end' ? 'right-0' : 'left-0'
+  ].join(' ')
+
+  return (
+    <span
+      className="relative inline-flex"
+      onMouseEnter={() => setShown(true)}
+      onMouseLeave={() => setShown(false)}
+    >
+      <Button
+        variant={VARIANTS[variant] ?? 'secondary'}
+        className={`cursor-help ${className}`}
+        aria-disabled="true"
+        aria-describedby={noteId}
+        onFocus={() => setShown(true)}
+        onBlur={() => setShown(false)}
+        onClick={showBriefly}
+      >
+        {label}
+      </Button>
+      <motion.span
+        id={noteId}
+        role="tooltip"
+        className={`pointer-events-none absolute z-overlay w-max max-w-[16rem] bg-raised px-3 py-2 text-small leading-snug text-fg/85 shadow-[inset_0_0_0_1px_rgb(var(--rule-strong))] ${position}`}
+        initial={false}
+        animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: side === 'top' ? 4 : -4 }}
+        transition={{ duration: duration.fast, ease: ease.out }}
+      >
+        {resume.unavailableNote}
+      </motion.span>
+    </span>
+  )
+}
+
+function ResumePreviewButton({ variant, className, label }) {
   const [open, setOpen] = useState(false)
 
   return (

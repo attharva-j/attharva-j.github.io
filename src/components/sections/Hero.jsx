@@ -132,7 +132,7 @@ export default function Hero() {
             <Button to="/projects" variant="primary" icon={ArrowDownRight}>
               View projects
             </Button>
-            <ResumeButton variant="secondary" />
+            <ResumeButton variant="secondary" align="end" />
           </motion.div>
         </motion.div>
       </motion.div>

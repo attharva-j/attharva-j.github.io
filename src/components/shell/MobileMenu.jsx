@@ -97,7 +97,7 @@ function MenuPanel({ onClose, activeId }) {
             </li>
           ))}
         </ul>
-        <ResumeButton variant="secondary" />
+        <ResumeButton variant="secondary" side="top" align="end" />
       </motion.div>
     </motion.div>
   )

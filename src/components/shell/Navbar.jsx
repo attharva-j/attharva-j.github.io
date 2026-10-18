@@ -75,7 +75,7 @@ export default function Navbar({ activeId }) {
               )
             })}
           </ul>
-          <ResumeButton variant="navbar" className="!h-10 !px-4 !text-sm" />
+          <ResumeButton variant="navbar" className="!h-10 !px-4 !text-sm" align="end" />
         </nav>
 
         <button
